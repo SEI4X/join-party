@@ -27,37 +27,57 @@ class _MainPageState extends State<MainPage> {
           bottomIcons == BottomIcons.Profile
               ? Center(child: Text("Profile"))
               : Container(),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).padding.top + 50,
-            padding: EdgeInsets.only(
-                left: 23, right: 24, top: MediaQuery.of(context).padding.top),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  spreadRadius: 1,
-                  blurRadius: 2,
-                  offset: Offset(0, 0), // changes position of shadow
-                ),
-              ],
-            ),
-            child: Align(
-              child: Text(
-                bottomIcons == BottomIcons.Map
-                    ? "Map"
-                    : bottomIcons == BottomIcons.Events
-                        ? "Events"
-                        : bottomIcons == BottomIcons.Chats
-                            ? "Chats"
-                            : "Profile",
-                style: TextStyle(
-                  color: Colors.orange,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).padding.top + 40,
+              padding: EdgeInsets.only(
+                  left: 24, right: 24, top: MediaQuery.of(context).padding.top),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: Offset(0, 0), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  bottomIcons == BottomIcons.Map
+                      ? Icon(EvaIcons.funnelOutline, color: Colors.blueGrey)
+                      : bottomIcons == BottomIcons.Events
+                          ? Container(width: 30)
+                          : bottomIcons == BottomIcons.Chats
+                              ? Container(width: 30)
+                              : Container(width: 30),
+                  Text(
+                    bottomIcons == BottomIcons.Map
+                        ? "Map"
+                        : bottomIcons == BottomIcons.Events
+                            ? "Events"
+                            : bottomIcons == BottomIcons.Chats
+                                ? "Chats"
+                                : "Profile",
+                    style: TextStyle(
+                      color: Colors.lightBlueAccent[400],
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                    ),
+                  ),
+                  bottomIcons == BottomIcons.Map
+                      ? Icon(EvaIcons.searchOutline, color: Colors.blueGrey)
+                      : bottomIcons == BottomIcons.Events
+                          ? Container(width: 30)
+                          : bottomIcons == BottomIcons.Chats
+                              ? Container(width: 30)
+                              : Container(width: 30),
+                ],
               ),
             ),
           ),
@@ -95,26 +115,31 @@ class _MainPageState extends State<MainPage> {
                     child: bottomIcons == BottomIcons.Map
                         ? Container(
                             decoration: BoxDecoration(
-                              color: Colors.orange[100].withOpacity(0.8),
+                              color:
+                                  Colors.lightBlueAccent[100].withOpacity(0.4),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             padding: EdgeInsets.only(
                                 left: 16, right: 16, top: 8, bottom: 8),
                             child: Row(
                               children: <Widget>[
-                                Icon(EvaIcons.globe3, color: Colors.orange),
+                                Icon(EvaIcons.globe3,
+                                    color: Colors.lightBlueAccent[400]),
                                 SizedBox(width: 8),
                                 Text(
                                   "Map",
                                   style: TextStyle(
-                                      color: Colors.orange,
+                                      color: Colors.lightBlueAccent[400],
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
                               ],
                             ),
                           )
-                        : Icon(EvaIcons.globe3),
+                        : Icon(
+                            EvaIcons.globe3,
+                            color: Colors.blueGrey,
+                          ),
                   ),
                   // События
                   GestureDetector(
@@ -126,7 +151,8 @@ class _MainPageState extends State<MainPage> {
                     child: bottomIcons == BottomIcons.Events
                         ? Container(
                             decoration: BoxDecoration(
-                              color: Colors.orange[100].withOpacity(0.8),
+                              color:
+                                  Colors.lightBlueAccent[100].withOpacity(0.5),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             padding: EdgeInsets.only(
@@ -134,19 +160,20 @@ class _MainPageState extends State<MainPage> {
                             child: Row(
                               children: <Widget>[
                                 Icon(EvaIcons.calendarOutline,
-                                    color: Colors.orange),
+                                    color: Colors.lightBlueAccent[400]),
                                 SizedBox(width: 8),
                                 Text(
                                   "Events",
                                   style: TextStyle(
-                                      color: Colors.orange,
+                                      color: Colors.lightBlueAccent[400],
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
                               ],
                             ),
                           )
-                        : Icon(EvaIcons.calendarOutline),
+                        : Icon(EvaIcons.calendarOutline,
+                            color: Colors.blueGrey),
                   ),
                   // Чаты
                   GestureDetector(
@@ -158,7 +185,8 @@ class _MainPageState extends State<MainPage> {
                     child: bottomIcons == BottomIcons.Chats
                         ? Container(
                             decoration: BoxDecoration(
-                              color: Colors.orange[100].withOpacity(0.8),
+                              color:
+                                  Colors.lightBlueAccent[100].withOpacity(0.5),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             padding: EdgeInsets.only(
@@ -166,19 +194,22 @@ class _MainPageState extends State<MainPage> {
                             child: Row(
                               children: <Widget>[
                                 Icon(EvaIcons.emailOutline,
-                                    color: Colors.orange),
+                                    color: Colors.lightBlueAccent[400]),
                                 SizedBox(width: 8),
                                 Text(
                                   "Chats",
                                   style: TextStyle(
-                                      color: Colors.orange,
+                                      color: Colors.lightBlueAccent[400],
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
                               ],
                             ),
                           )
-                        : Icon(EvaIcons.emailOutline),
+                        : Icon(
+                            EvaIcons.emailOutline,
+                            color: Colors.blueGrey,
+                          ),
                   ),
                   // Профиль
                   GestureDetector(
@@ -190,7 +221,8 @@ class _MainPageState extends State<MainPage> {
                     child: bottomIcons == BottomIcons.Profile
                         ? Container(
                             decoration: BoxDecoration(
-                              color: Colors.orange[100].withOpacity(0.8),
+                              color:
+                                  Colors.lightBlueAccent[100].withOpacity(0.5),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             padding: EdgeInsets.only(
@@ -198,19 +230,22 @@ class _MainPageState extends State<MainPage> {
                             child: Row(
                               children: <Widget>[
                                 Icon(EvaIcons.personOutline,
-                                    color: Colors.orange),
+                                    color: Colors.lightBlueAccent[400]),
                                 SizedBox(width: 8),
                                 Text(
                                   "Profile",
                                   style: TextStyle(
-                                      color: Colors.orange,
+                                      color: Colors.lightBlueAccent[400],
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
                               ],
                             ),
                           )
-                        : Icon(EvaIcons.personOutline),
+                        : Icon(
+                            EvaIcons.personOutline,
+                            color: Colors.blueGrey,
+                          ),
                   ),
                 ],
               ),
