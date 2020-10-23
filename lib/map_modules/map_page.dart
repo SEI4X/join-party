@@ -26,6 +26,7 @@ class _MapPageState extends State<MapPage> {
     return Stack(
       children: <Widget>[
         GoogleMap(
+          padding: EdgeInsets.only(top: 60, bottom: 50),
           onMapCreated: _onMapCreated,
           onCameraMove: _onCameraMove,
           initialCameraPosition: CameraPosition(target: _center, zoom: 11),

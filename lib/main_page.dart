@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'map_page.dart';
+import 'map_modules/map_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
