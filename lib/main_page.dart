@@ -49,8 +49,13 @@ class _MainPageState extends State<MainPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Icon(EvaIcons.funnelOutline,
-                      color: Colors.lightBlueAccent[400]),
+                  bottomIcons == BottomIcons.Map
+                      ? Icon(EvaIcons.funnelOutline, color: Colors.blueGrey)
+                      : bottomIcons == BottomIcons.Events
+                          ? Container(width: 30)
+                          : bottomIcons == BottomIcons.Chats
+                              ? Container(width: 30)
+                              : Container(width: 30),
                   Text(
                     bottomIcons == BottomIcons.Map
                         ? "Map"
@@ -60,13 +65,18 @@ class _MainPageState extends State<MainPage> {
                                 ? "Chats"
                                 : "Profile",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.lightBlueAccent[400],
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),
                   ),
-                  Icon(EvaIcons.searchOutline,
-                      color: Colors.lightBlueAccent[400]),
+                  bottomIcons == BottomIcons.Map
+                      ? Icon(EvaIcons.searchOutline, color: Colors.blueGrey)
+                      : bottomIcons == BottomIcons.Events
+                          ? Container(width: 30)
+                          : bottomIcons == BottomIcons.Chats
+                              ? Container(width: 30)
+                              : Container(width: 30),
                 ],
               ),
             ),
@@ -162,7 +172,8 @@ class _MainPageState extends State<MainPage> {
                               ],
                             ),
                           )
-                        : Icon(EvaIcons.calendarOutline),
+                        : Icon(EvaIcons.calendarOutline,
+                            color: Colors.blueGrey),
                   ),
                   // Чаты
                   GestureDetector(
@@ -195,7 +206,10 @@ class _MainPageState extends State<MainPage> {
                               ],
                             ),
                           )
-                        : Icon(EvaIcons.emailOutline),
+                        : Icon(
+                            EvaIcons.emailOutline,
+                            color: Colors.blueGrey,
+                          ),
                   ),
                   // Профиль
                   GestureDetector(
@@ -228,7 +242,10 @@ class _MainPageState extends State<MainPage> {
                               ],
                             ),
                           )
-                        : Icon(EvaIcons.personOutline),
+                        : Icon(
+                            EvaIcons.personOutline,
+                            color: Colors.blueGrey,
+                          ),
                   ),
                 ],
               ),
