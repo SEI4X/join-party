@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'map_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -14,6 +15,18 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
+          bottomIcons == BottomIcons.Map
+              ? Center(child: MapPage())
+              : Container(),
+          bottomIcons == BottomIcons.Events
+              ? Center(child: Text("Event"))
+              : Container(),
+          bottomIcons == BottomIcons.Chats
+              ? Center(child: Text("Chats"))
+              : Container(),
+          bottomIcons == BottomIcons.Profile
+              ? Center(child: Text("Profile"))
+              : Container(),
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).padding.top + 50,
@@ -48,18 +61,6 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
           ),
-          bottomIcons == BottomIcons.Map
-              ? Center(child: Text("Map"))
-              : Container(),
-          bottomIcons == BottomIcons.Events
-              ? Center(child: Text("Event"))
-              : Container(),
-          bottomIcons == BottomIcons.Chats
-              ? Center(child: Text("Chats"))
-              : Container(),
-          bottomIcons == BottomIcons.Profile
-              ? Center(child: Text("Profile"))
-              : Container(),
           Align(
             alignment: Alignment(0, 1.05),
             child: Container(
