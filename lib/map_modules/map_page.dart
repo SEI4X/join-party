@@ -1,9 +1,9 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:location/location.dart' as lct;
-import 'package:flutter/material.dart';
 import 'dart:async';
+import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -11,113 +11,90 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  MapType _currentMapType = MapType.normal;
-  GoogleMapController _controller;
-  LatLng _currentLocation = LatLng(55.747574, 37.640680);
-  lct.Location location;
-  BitmapDescriptor icon;
-
   @override
   void initState() {
-    getIcon();
-    requestPerms();
+    getCurrentLocation();
     super.initState();
   }
 
-  getLocation() async {
-    var currentLocation = await location.getLocation();
-    locationUpdate(currentLocation);
+  StreamSubscription _locationSubscription;
+  Location _locationTracker = Location();
+  Marker marker;
+  GoogleMapController _controller;
+
+  static final CameraPosition initialLocation = CameraPosition(
+    target: LatLng(55.747574, 37.640680),
+    zoom: 12,
+  );
+
+  Future<Uint8List> getMarker() async {
+    ByteData byteData =
+        await DefaultAssetBundle.of(context).load("assets/images/myLoc.png");
+    return byteData.buffer.asUint8List();
   }
 
-  locationUpdate(currentLocation) {
-    if (currentLocation = null) {
-      setState(() {
-        _currentLocation =
-            LatLng(currentLocation.latitude, currentLocation.longitude);
-        this._controller.animateCamera(CameraUpdate.newCameraPosition(
-            CameraPosition(target: _currentLocation, zoom: 12.5)));
-        _createMarker();
+  void updateMarkerAndCircle(LocationData newLocalData, Uint8List imageData) {
+    LatLng latlng = LatLng(newLocalData.latitude, newLocalData.longitude);
+    this.setState(() {
+      marker = Marker(
+          markerId: MarkerId("home"),
+          position: latlng,
+          rotation: newLocalData.heading,
+          draggable: false,
+          zIndex: 2,
+          flat: true,
+          anchor: Offset(0.5, 0.5),
+          icon: BitmapDescriptor.fromBytes(imageData));
+    });
+  }
+
+  void getCurrentLocation() async {
+    try {
+      Uint8List imageData = await getMarker();
+      var location = await _locationTracker.getLocation();
+
+      updateMarkerAndCircle(location, imageData);
+
+      if (_locationSubscription != null) {
+        _locationSubscription.cancel();
+      }
+
+      _locationSubscription =
+          _locationTracker.onLocationChanged.listen((newLocalData) {
+        if (_controller != null) {
+          updateMarkerAndCircle(newLocalData, imageData);
+        }
       });
+    } on PlatformException catch (e) {
+      if (e.code == 'PERMISSION_DENIED') {
+        debugPrint("Permission Denied");
+      }
     }
   }
 
-  gpsEnable() async {
-    location = lct.Location();
-    bool statusResult = await location.requestService();
-
-    if (!statusResult) {
-      gpsEnable();
-    } else {
-      getLocation();
-      changedLocation();
+  @override
+  void dispose() {
+    if (_locationSubscription != null) {
+      _locationSubscription.cancel();
     }
-  }
-
-  getIcon() async {
-    var icon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 3.0), "assets/images/myLoc.png");
-    setState(() {
-      this.icon = icon;
-    });
-  }
-
-  Set<Marker> _createMarker() {
-    var marker = Set<Marker>();
-
-    marker.add(Marker(
-        markerId: MarkerId("MarkerCurrent"),
-        position: _currentLocation,
-        infoWindow: InfoWindow(title: "My position", snippet: ""),
-        draggable: true,
-        onDragEnd: onDragEnd,
-        icon: icon));
-
-    return marker;
-  }
-
-  onDragEnd(LatLng position) {
-    print("Position: $position");
-  }
-
-  requestPerms() async {
-    Map<Permission, PermissionStatus> statuses =
-        await [Permission.locationAlways].request();
-
-    var status = statuses[Permission.locationAlways];
-    if (status == PermissionStatus.denied) {
-      requestPerms();
-    } else {
-      gpsEnable();
-    }
-  }
-
-  _onMapCreated(GoogleMapController controller) {
-    _controller = controller;
-  }
-
-  changedLocation() {
-    location.onLocationChanged.listen((lct.LocationData cLoc) {
-      if (cLoc != null) locationUpdate(cLoc);
-    });
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: <Widget>[
+      children: [
         GoogleMap(
-          padding: EdgeInsets.only(top: 60, bottom: 50),
-          onMapCreated: _onMapCreated,
-          myLocationEnabled: true,
-          minMaxZoomPreference: MinMaxZoomPreference(7, 16),
-          initialCameraPosition:
-              CameraPosition(target: _currentLocation, zoom: 11),
-          mapType: _currentMapType,
-          myLocationButtonEnabled: false,
-          zoomControlsEnabled: false,
-          markers: _createMarker(),
+          initialCameraPosition: initialLocation,
+          mapType: MapType.normal,
+          markers: Set.of((marker != null) ? [marker] : []),
+          onMapCreated: (GoogleMapController controller) {
+            _controller = controller;
+          },
         ),
       ],
     );
   }
 }
+
+//padding: EdgeInsets.only(top: 60, bottom: 50),
