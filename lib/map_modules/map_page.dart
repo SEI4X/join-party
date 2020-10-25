@@ -11,16 +11,19 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  @override
-  void initState() {
-    getCurrentLocation();
-    super.initState();
-  }
-
+  bool isMapCreated = false;
   StreamSubscription _locationSubscription;
   Location _locationTracker = Location();
   Marker marker;
   GoogleMapController _controller;
+
+  Future<String> getJsonFile(String path) async {
+    return await rootBundle.loadString(path);
+  }
+
+  void setMapStyle(String style) {
+    _controller.setMapStyle(style);
+  }
 
   static final CameraPosition initialLocation = CameraPosition(
     target: LatLng(55.747574, 37.640680),
@@ -72,6 +75,10 @@ class _MapPageState extends State<MapPage> {
     }
   }
 
+  changeMapMode() {
+    getJsonFile("assets/light_map.json").then(setMapStyle);
+  }
+
   @override
   void dispose() {
     if (_locationSubscription != null) {
@@ -81,7 +88,16 @@ class _MapPageState extends State<MapPage> {
   }
 
   @override
+  void initState() {
+    getCurrentLocation();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (isMapCreated) {
+      changeMapMode();
+    }
     return Stack(
       children: [
         GoogleMap(
@@ -90,6 +106,9 @@ class _MapPageState extends State<MapPage> {
           markers: Set.of((marker != null) ? [marker] : []),
           onMapCreated: (GoogleMapController controller) {
             _controller = controller;
+            isMapCreated = true;
+            changeMapMode();
+            setState(() {});
           },
         ),
       ],
