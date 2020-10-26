@@ -79,6 +79,8 @@ class _MapPageState extends State<MapPage> {
     getJsonFile("assets/light_map.json").then(setMapStyle);
   }
 
+  addEventOnMap() {}
+
   @override
   void dispose() {
     if (_locationSubscription != null) {
@@ -110,6 +112,7 @@ class _MapPageState extends State<MapPage> {
             changeMapMode();
             setState(() {});
           },
+          onLongPress: addEventOnMap(),
         ),
       ],
     );
