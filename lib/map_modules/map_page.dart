@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:platform_maps_flutter/platform_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class MapPage extends StatefulWidget {
@@ -15,14 +15,14 @@ class _MapPageState extends State<MapPage> {
   StreamSubscription _locationSubscription;
   Location _locationTracker = Location();
   Marker marker;
-  GoogleMapController _controller;
+  PlatformMapController _controller;
 
   Future<String> getJsonFile(String path) async {
     return await rootBundle.loadString(path);
   }
 
   void setMapStyle(String style) {
-    _controller.setMapStyle(style);
+    _controller.googleController.setMapStyle(style);
   }
 
   static final CameraPosition initialLocation = CameraPosition(
@@ -42,11 +42,7 @@ class _MapPageState extends State<MapPage> {
       marker = Marker(
           markerId: MarkerId("home"),
           position: latlng,
-          rotation: newLocalData.heading,
           draggable: false,
-          zIndex: 2,
-          flat: true,
-          anchor: Offset(0.5, 0.5),
           icon: BitmapDescriptor.fromBytes(imageData));
     });
   }
@@ -102,17 +98,19 @@ class _MapPageState extends State<MapPage> {
     }
     return Stack(
       children: [
-        GoogleMap(
+        PlatformMap(
+          padding: EdgeInsets.only(top: 50, bottom: 40),
           initialCameraPosition: initialLocation,
           mapType: MapType.normal,
           markers: Set.of((marker != null) ? [marker] : []),
-          onMapCreated: (GoogleMapController controller) {
+          onMapCreated: (PlatformMapController controller) {
             _controller = controller;
             isMapCreated = true;
             changeMapMode();
             setState(() {});
           },
           onLongPress: addEventOnMap(),
+          myLocationButtonEnabled: false,
         ),
       ],
     );
