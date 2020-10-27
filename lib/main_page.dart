@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
 import 'chats_page.dart';
-import 'map_page.dart';
+import 'package:join_party/map_modules/search_bar.dart';
+import 'map_modules/map_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -72,7 +73,14 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                   bottomIcons == BottomIcons.Map
-                      ? Icon(EvaIcons.searchOutline, color: Colors.blueGrey)
+                      ? IconButton(
+                          icon: Icon(EvaIcons.searchOutline),
+                          color: Colors.blueGrey,
+                          onPressed: () {
+                            showSearch(
+                                context: context, delegate: SearchData());
+                          },
+                        )
                       : bottomIcons == BottomIcons.Events
                           ? Container(width: 30)
                           : bottomIcons == BottomIcons.Chats
