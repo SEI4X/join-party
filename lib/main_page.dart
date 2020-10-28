@@ -11,15 +11,19 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
+enum States { map, events, chats, profile }
+
 BottomIcons bottomIcons = BottomIcons.Map;
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   static final tabs = [
     Center(child: MapPage()),
     Center(child: Text("Events")),
     Center(child: ChatsPage()),
     Center(child: Text("Profile")),
   ];
+
+  int menuDuration = 125;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +57,11 @@ class _MainPageState extends State<MainPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   bottomIcons == BottomIcons.Map
-                      ? Icon(EvaIcons.funnelOutline, color: Colors.blueGrey)
+                      ? Icon(
+                          EvaIcons.funnelOutline,
+                          color: Colors.blueGrey,
+                          size: 25,
+                        )
                       : bottomIcons == BottomIcons.Events
                           ? Container(width: 30)
                           : bottomIcons == BottomIcons.Chats
@@ -69,13 +77,20 @@ class _MainPageState extends State<MainPage> {
                                 ? "Chats"
                                 : "Profile",
                     style: TextStyle(
-                      color: Colors.lightBlueAccent[400],
+                      color: bottomIcons == BottomIcons.Map
+                          ? Colors.lightBlueAccent[400]
+                          : bottomIcons == BottomIcons.Events
+                              ? Colors.pink[400]
+                              : bottomIcons == BottomIcons.Chats
+                                  ? Colors.orange
+                                  : Colors.tealAccent[700],
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),
                   ),
                   bottomIcons == BottomIcons.Map
                       ? IconButton(
+                          iconSize: 25,
                           icon: Icon(EvaIcons.searchOutline),
                           color: Colors.blueGrey,
                           onPressed: () {
@@ -119,146 +134,162 @@ class _MainPageState extends State<MainPage> {
                 children: <Widget>[
                   // Карта
                   GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        bottomIcons = BottomIcons.Map;
-                      });
-                    },
-                    child: bottomIcons == BottomIcons.Map
-                        ? Container(
-                            decoration: BoxDecoration(
-                              color:
-                                  Colors.lightBlueAccent[100].withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            padding: EdgeInsets.only(
-                                left: 16, right: 16, top: 8, bottom: 8),
-                            child: Row(
-                              children: <Widget>[
-                                Icon(EvaIcons.globe3,
-                                    color: Colors.lightBlueAccent[400]),
-                                SizedBox(width: 8),
-                                Text(
-                                  "Map",
-                                  style: TextStyle(
-                                      color: Colors.lightBlueAccent[400],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Icon(
-                            EvaIcons.globe3,
-                            color: Colors.blueGrey,
-                          ),
-                  ),
+                      onTap: () {
+                        setState(() {
+                          bottomIcons = BottomIcons.Map;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        decoration: BoxDecoration(
+                          color: bottomIcons == BottomIcons.Map
+                              ? Colors.lightBlueAccent[100].withOpacity(0.4)
+                              : Colors.lightBlueAccent[100].withOpacity(0.0),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        padding: EdgeInsets.only(
+                            left: 16, right: 16, top: 8, bottom: 8),
+                        duration: Duration(milliseconds: menuDuration),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(EvaIcons.globe3,
+                                color: bottomIcons == BottomIcons.Map
+                                    ? Colors.lightBlueAccent[400]
+                                    : Colors.lightBlueAccent),
+                            AnimatedSize(
+                              duration: Duration(milliseconds: menuDuration),
+                              curve: Curves.easeInOut,
+                              vsync: this,
+                              child: Text(
+                                bottomIcons == BottomIcons.Map ? "  Map" : "",
+                                style: TextStyle(
+                                    color: Colors.lightBlueAccent[400],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
+                            )
+                          ],
+                        ),
+                      )),
                   // События
                   GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        bottomIcons = BottomIcons.Events;
-                      });
-                    },
-                    child: bottomIcons == BottomIcons.Events
-                        ? Container(
-                            decoration: BoxDecoration(
-                              color:
-                                  Colors.lightBlueAccent[100].withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            padding: EdgeInsets.only(
-                                left: 16, right: 16, top: 8, bottom: 8),
-                            child: Row(
-                              children: <Widget>[
-                                Icon(EvaIcons.calendarOutline,
-                                    color: Colors.lightBlueAccent[400]),
-                                SizedBox(width: 8),
-                                Text(
-                                  "Events",
-                                  style: TextStyle(
-                                      color: Colors.lightBlueAccent[400],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Icon(EvaIcons.calendarOutline,
-                            color: Colors.blueGrey),
-                  ),
+                      onTap: () {
+                        setState(() {
+                          bottomIcons = BottomIcons.Events;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        decoration: BoxDecoration(
+                          color: bottomIcons == BottomIcons.Events
+                              ? Colors.pink[100].withOpacity(0.4)
+                              : Colors.pink[100].withOpacity(0.0),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        padding: EdgeInsets.only(
+                            left: 16, right: 16, top: 8, bottom: 8),
+                        duration: Duration(milliseconds: menuDuration),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(EvaIcons.calendarOutline,
+                                color: bottomIcons == BottomIcons.Events
+                                    ? Colors.pink
+                                    : Colors.pink[400]),
+                            AnimatedSize(
+                              duration: Duration(milliseconds: menuDuration),
+                              curve: Curves.easeInOut,
+                              vsync: this,
+                              child: Text(
+                                bottomIcons == BottomIcons.Events
+                                    ? "  Events"
+                                    : "",
+                                style: TextStyle(
+                                    color: Colors.pink[400],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
+                            )
+                          ],
+                        ),
+                      )),
                   // Чаты
                   GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        bottomIcons = BottomIcons.Chats;
-                      });
-                    },
-                    child: bottomIcons == BottomIcons.Chats
-                        ? Container(
-                            decoration: BoxDecoration(
-                              color:
-                                  Colors.lightBlueAccent[100].withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            padding: EdgeInsets.only(
-                                left: 16, right: 16, top: 8, bottom: 8),
-                            child: Row(
-                              children: <Widget>[
-                                Icon(EvaIcons.emailOutline,
-                                    color: Colors.lightBlueAccent[400]),
-                                SizedBox(width: 8),
-                                Text(
-                                  "Chats",
-                                  style: TextStyle(
-                                      color: Colors.lightBlueAccent[400],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Icon(
-                            EvaIcons.emailOutline,
-                            color: Colors.blueGrey,
-                          ),
-                  ),
+                      onTap: () {
+                        setState(() {
+                          bottomIcons = BottomIcons.Chats;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        decoration: BoxDecoration(
+                          color: bottomIcons == BottomIcons.Chats
+                              ? Colors.orange[100].withOpacity(0.4)
+                              : Colors.orange[100].withOpacity(0.0),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        padding: EdgeInsets.only(
+                            left: 16, right: 16, top: 8, bottom: 8),
+                        duration: Duration(milliseconds: menuDuration),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(EvaIcons.emailOutline,
+                                color: bottomIcons == BottomIcons.Chats
+                                    ? Colors.orange
+                                    : Colors.orange[400]),
+                            AnimatedSize(
+                              duration: Duration(milliseconds: menuDuration),
+                              curve: Curves.easeInOut,
+                              vsync: this,
+                              child: Text(
+                                bottomIcons == BottomIcons.Chats
+                                    ? "  Chats"
+                                    : "",
+                                style: TextStyle(
+                                    color: Colors.orange,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
+                            )
+                          ],
+                        ),
+                      )),
                   // Профиль
                   GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        bottomIcons = BottomIcons.Profile;
-                      });
-                    },
-                    child: bottomIcons == BottomIcons.Profile
-                        ? Container(
-                            decoration: BoxDecoration(
-                              color:
-                                  Colors.lightBlueAccent[100].withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            padding: EdgeInsets.only(
-                                left: 16, right: 16, top: 8, bottom: 8),
-                            child: Row(
-                              children: <Widget>[
-                                Icon(EvaIcons.personOutline,
-                                    color: Colors.lightBlueAccent[400]),
-                                SizedBox(width: 8),
-                                Text(
-                                  "Profile",
-                                  style: TextStyle(
-                                      color: Colors.lightBlueAccent[400],
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Icon(
-                            EvaIcons.personOutline,
-                            color: Colors.blueGrey,
-                          ),
-                  ),
+                      onTap: () {
+                        setState(() {
+                          bottomIcons = BottomIcons.Profile;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        decoration: BoxDecoration(
+                          color: bottomIcons == BottomIcons.Profile
+                              ? Colors.tealAccent.withOpacity(0.4)
+                              : Colors.tealAccent.withOpacity(0.0),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        padding: EdgeInsets.only(
+                            left: 16, right: 16, top: 8, bottom: 8),
+                        duration: Duration(milliseconds: menuDuration),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(EvaIcons.personOutline,
+                                color: bottomIcons == BottomIcons.Profile
+                                    ? Colors.tealAccent[700]
+                                    : Colors.tealAccent[700]),
+                            AnimatedSize(
+                              duration: Duration(milliseconds: menuDuration),
+                              curve: Curves.easeInOut,
+                              vsync: this,
+                              child: Text(
+                                bottomIcons == BottomIcons.Profile
+                                    ? "  Profile"
+                                    : "",
+                                style: TextStyle(
+                                    color: Colors.tealAccent[700],
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
+                            )
+                          ],
+                        ),
+                      )),
                 ],
               ),
             ),
