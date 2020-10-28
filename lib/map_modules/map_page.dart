@@ -99,7 +99,7 @@ class _MapPageState extends State<MapPage> {
     return Stack(
       children: [
         PlatformMap(
-          padding: EdgeInsets.only(top: 50, bottom: 42),
+          padding: EdgeInsets.only(top: 50, bottom: 40),
           initialCameraPosition: initialLocation,
           mapType: MapType.normal,
           markers: Set.of((marker != null) ? [marker] : []),

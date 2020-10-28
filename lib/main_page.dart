@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
 import 'chats_modules/chats_page.dart';
@@ -12,23 +14,22 @@ class MainPage extends StatefulWidget {
 BottomIcons bottomIcons = BottomIcons.Map;
 
 class _MainPageState extends State<MainPage> {
+  static final tabs = [
+    Center(child: MapPage()),
+    Center(child: Text("Events")),
+    Center(child: ChatsPage()),
+    Center(child: Text("Profile")),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          bottomIcons == BottomIcons.Map
-              ? Center(child: MapPage())
-              : Container(),
-          bottomIcons == BottomIcons.Events
-              ? Center(child: Text("Event"))
-              : Container(),
-          bottomIcons == BottomIcons.Chats
-              ? Center(child: ChatsPage())
-              : Container(),
-          bottomIcons == BottomIcons.Profile
-              ? Center(child: Text("Profile"))
-              : Container(),
+          tabs[0],
+          bottomIcons == BottomIcons.Events ? tabs[1] : Container(),
+          bottomIcons == BottomIcons.Chats ? tabs[2] : Container(),
+          bottomIcons == BottomIcons.Profile ? tabs[3] : Container(),
           Align(
             alignment: Alignment.topCenter,
             child: Container(
