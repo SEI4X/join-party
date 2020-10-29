@@ -1,6 +1,43 @@
+import 'package:flutter/material.dart';
 import 'package:platform_maps_flutter/platform_maps_flutter.dart';
 
 import 'user_model.dart';
+
+Map<int, LinearGradient> eventColors = {
+  1: LinearGradient(
+    colors: [Color(0xcc83e2f7), Color(0xcc50bce2)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+  2: LinearGradient(
+    colors: [Color(0xeeffac5e), Color(0xeef6953a)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+  3: LinearGradient(
+    colors: [Color(0xeeff88bd), Color(0xeeea4579)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+  4: LinearGradient(
+    colors: [Color(0xeee795fa), Color(0xeed055ef)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+  5: LinearGradient(
+    colors: [Color(0xee5af0c9), Color(0xee00cea6)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+};
+
+Map<int, Color> eventShadows = {
+  1: Color(0xcc649bb3),
+  2: Color(0xccc77e3e),
+  3: Color(0xccbf4d7c),
+  4: Color(0xcc9a4ead),
+  5: Color(0xcc38a894),
+};
 
 class Events {
   final User sender;
@@ -12,6 +49,7 @@ class Events {
   final int membersCount;
   final List<User> members;
   final bool isActive;
+  final int colorScheme;
   // final GroupMessage chat;
 
   Events({
@@ -24,6 +62,7 @@ class Events {
     this.membersCount,
     this.members,
     this.isActive,
+    this.colorScheme,
   });
 }
 
@@ -86,6 +125,7 @@ List<Events> events = [
     membersCount: 56,
     members: [james, steven, sophia],
     isActive: true,
+    colorScheme: 1,
   ),
   Events(
     sender: olivia,
@@ -97,6 +137,7 @@ List<Events> events = [
     membersCount: 28,
     members: [james, steven, sophia],
     isActive: true,
+    colorScheme: 3,
   ),
   Events(
     sender: sophia,
@@ -108,6 +149,7 @@ List<Events> events = [
     membersCount: 321,
     members: [james, steven, sophia],
     isActive: true,
+    colorScheme: 2,
   ),
   Events(
     sender: greg,
@@ -119,6 +161,7 @@ List<Events> events = [
     membersCount: 3,
     members: [james, steven, sophia],
     isActive: true,
+    colorScheme: 5,
   ),
   Events(
     sender: sam,
@@ -130,6 +173,7 @@ List<Events> events = [
     membersCount: 5829,
     members: [james, steven, sophia],
     isActive: true,
+    colorScheme: 4,
   ),
   Events(
     sender: steven,
@@ -141,5 +185,6 @@ List<Events> events = [
     membersCount: 56,
     members: [james, steven, sophia],
     isActive: true,
+    colorScheme: 2,
   ),
 ];

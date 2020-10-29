@@ -24,10 +24,19 @@ class EventsPage extends StatelessWidget {
                 ),
               ),
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10),
+                padding: EdgeInsets.only(
+                    left: 15.0, top: 10.0, bottom: 10, right: 10),
                 decoration: BoxDecoration(
-                  color: Color(0xff7cc6e5),
+                  gradient: eventColors[event.colorScheme],
+                  boxShadow: [
+                    BoxShadow(
+                      color: eventShadows[event.colorScheme],
+                      spreadRadius: 2,
+                      blurRadius: 4,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 ),
                 child: Row(
