@@ -32,11 +32,11 @@ Map<int, LinearGradient> eventColors = {
 };
 
 Map<int, Color> eventShadows = {
-  1: Color(0xcc649bb3),
-  2: Color(0xccc77e3e),
-  3: Color(0xccbf4d7c),
-  4: Color(0xcc9a4ead),
-  5: Color(0xcc38a894),
+  1: Color(0xee649bb3),
+  2: Color(0xeec77e3e),
+  3: Color(0xeebf4d7c),
+  4: Color(0xee9a4ead),
+  5: Color(0xee38a894),
 };
 
 class Events {
@@ -131,7 +131,7 @@ List<Events> events = [
     sender: olivia,
     date: '22.12.2020',
     time: '18:30',
-    name: 'Открытая зимняя выставка',
+    name: 'Открытая зимняя выставка в центре москвы',
     place: 'Москва, Китай-Город',
     position: LatLng(12, 13),
     membersCount: 28,
