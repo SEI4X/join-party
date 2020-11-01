@@ -77,7 +77,7 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: Icon(Icons.photo),
             iconSize: 25.0,
-            color: Theme.of(context).primaryColor,
+            color: userColors[widget.user.colorScheme],
             onPressed: () {},
           ),
           Expanded(
@@ -92,7 +92,7 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: Icon(Icons.send),
             iconSize: 25.0,
-            color: Theme.of(context).primaryColor,
+            color: userColors[widget.user.colorScheme],
             onPressed: () {},
           ),
         ],
@@ -103,8 +103,9 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: userColors[widget.user.colorScheme],
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         title: Text(
           widget.user.name,
           style: TextStyle(
