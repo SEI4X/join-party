@@ -474,6 +474,7 @@ class _EventScreenState extends State<EventScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffefefef),
       body: Stack(
         children: [
           SingleChildScrollView(
