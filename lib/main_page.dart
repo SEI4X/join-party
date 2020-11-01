@@ -3,8 +3,10 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
 import 'chats_modules/chats_page.dart';
-import 'package:join_party/map_modules/search_bar.dart';
 import 'map_modules/map_page.dart';
+import 'events_modules/events_page.dart';
+
+import 'package:join_party/map_modules/search_bar.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -18,7 +20,7 @@ BottomIcons bottomIcons = BottomIcons.Map;
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   static final tabs = [
     Center(child: MapPage()),
-    Center(child: Text("Events")),
+    Center(child: EventsPage()),
     Center(child: ChatsPage()),
     Center(child: Text("Profile")),
   ];
