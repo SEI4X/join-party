@@ -1,6 +1,5 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../models/events_model.dart';
 import 'event_screen.dart';
 
@@ -20,7 +19,7 @@ class EventsPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (_) => EventScreen(
-                    user: event.sender,
+                    event: event,
                   ),
                 ),
               ),
@@ -29,7 +28,7 @@ class EventsPage extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: 10.0, top: 10.0, bottom: 10, right: 10),
                 decoration: BoxDecoration(
-                  gradient: eventColors[event.colorScheme],
+                  gradient: eventGradient[event.colorScheme],
                   boxShadow: [
                     BoxShadow(
                       color: eventShadows[event.colorScheme],

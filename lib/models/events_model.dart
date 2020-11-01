@@ -3,7 +3,7 @@ import 'package:platform_maps_flutter/platform_maps_flutter.dart';
 
 import 'user_model.dart';
 
-Map<int, LinearGradient> eventColors = {
+Map<int, LinearGradient> eventGradient = {
   1: LinearGradient(
     colors: [Color(0xcc83e2f7), Color(0xcc50bce2)],
     begin: Alignment.topLeft,
@@ -39,6 +39,14 @@ Map<int, Color> eventShadows = {
   5: Color(0xee38a894),
 };
 
+Map<int, Color> eventColors = {
+  1: Color(0xff50bce2),
+  2: Color(0xfff6953a),
+  3: Color(0xffea4579),
+  4: Color(0xffd055ef),
+  5: Color(0xff00cea6),
+};
+
 class Events {
   final User sender;
   final String date;
@@ -50,6 +58,9 @@ class Events {
   final List<User> members;
   final bool isActive;
   final int colorScheme;
+  final String imageUrl;
+  final String description;
+  final bool hasImage;
   // final GroupMessage chat;
 
   Events({
@@ -63,6 +74,9 @@ class Events {
     this.members,
     this.isActive,
     this.colorScheme,
+    this.imageUrl,
+    this.description,
+    this.hasImage,
   });
 }
 
@@ -119,13 +133,17 @@ List<Events> events = [
     sender: james,
     date: '22.12.2020',
     time: '18:30',
-    name: 'Открытая зимняя выставка',
+    name: 'Открытие нового бара в центре москвы!',
     place: 'Москва, Китай-Город',
     position: LatLng(12, 13),
     membersCount: 56,
     members: [james, steven, sophia],
     isActive: true,
     colorScheme: 1,
+    imageUrl: "assets/images/bars.jpg",
+    description:
+        "Мы приглашаем всех желающих придти на открытие нового бара в центре москвы. Вас ждут конкурсы, бесплатная выпивка и многое другое! Не пропусти=)",
+    hasImage: true,
   ),
   Events(
     sender: olivia,
@@ -138,6 +156,7 @@ List<Events> events = [
     members: [james, steven, sophia],
     isActive: true,
     colorScheme: 3,
+    hasImage: false,
   ),
   Events(
     sender: sophia,
@@ -150,6 +169,7 @@ List<Events> events = [
     members: [james, steven, sophia],
     isActive: true,
     colorScheme: 2,
+    hasImage: false,
   ),
   Events(
     sender: greg,
@@ -162,6 +182,7 @@ List<Events> events = [
     members: [james, steven, sophia],
     isActive: true,
     colorScheme: 5,
+    hasImage: false,
   ),
   Events(
     sender: sam,
@@ -174,6 +195,7 @@ List<Events> events = [
     members: [james, steven, sophia],
     isActive: true,
     colorScheme: 4,
+    hasImage: false,
   ),
   Events(
     sender: steven,
@@ -186,5 +208,6 @@ List<Events> events = [
     members: [james, steven, sophia],
     isActive: true,
     colorScheme: 2,
+    hasImage: false,
   ),
 ];
