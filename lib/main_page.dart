@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
+import 'package:join_party/profile%20modules/profile_page.dart';
 import 'chats_modules/chats_page.dart';
 import 'package:join_party/map_modules/search_bar.dart';
 import 'map_modules/map_page.dart';
@@ -17,10 +18,10 @@ BottomIcons bottomIcons = BottomIcons.Map;
 
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   static final tabs = [
-    Center(child: MapPage()),
+    Center(child: Text("Maps")),
     Center(child: Text("Events")),
     Center(child: ChatsPage()),
-    Center(child: Text("Profile")),
+    Center(child: ProfilePage()),
   ];
 
   int menuDuration = 125;
@@ -52,7 +53,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     offset: Offset(0, 0), // changes position of shadow
                   ),
                 ],
-              ),
+               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

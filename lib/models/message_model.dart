@@ -21,6 +21,7 @@ class Message {
 final User currentUser = User(
   id: 0,
   name: 'Current User',
+  secondName: 'SecondName',
   imageUrl: 'assets/images/greg.jpg',
 );
 
@@ -28,36 +29,43 @@ final User currentUser = User(
 final User greg = User(
   id: 1,
   name: 'Greg',
+  secondName: 'Tit',
   imageUrl: 'assets/images/greg.jpg',
 );
 final User james = User(
   id: 2,
   name: 'James',
+  secondName: 'Philips',
   imageUrl: 'assets/images/james.jpg',
 );
 final User john = User(
   id: 3,
   name: 'John',
+  secondName: 'Hot',
   imageUrl: 'assets/images/john.jpg',
 );
 final User olivia = User(
   id: 4,
   name: 'Olivia',
+  secondName: 'Grey',
   imageUrl: 'assets/images/olivia.jpg',
 );
 final User sam = User(
   id: 5,
   name: 'Sam',
+  secondName: 'Jones',
   imageUrl: 'assets/images/sam.jpg',
 );
 final User sophia = User(
   id: 6,
   name: 'Sophia',
+  secondName: 'Fox',
   imageUrl: 'assets/images/sophia.jpg',
 );
 final User steven = User(
   id: 7,
   name: 'Steven',
+  secondName: 'Tames',
   imageUrl: 'assets/images/steven.jpg',
 );
 
