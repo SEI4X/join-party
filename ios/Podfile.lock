@@ -16,6 +16,9 @@ PODS:
     - FirebaseAnalytics (= 6.8.3)
   - Firebase/CoreOnly (6.33.0):
     - FirebaseCore (= 6.10.3)
+  - Firebase/Database (6.33.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (~> 6.6.0)
   - Firebase/Firestore (6.33.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 1.18.0)
@@ -31,6 +34,11 @@ PODS:
     - Flutter
   - firebase_core (0.5.1):
     - Firebase/CoreOnly (~> 6.33.0)
+    - Flutter
+  - firebase_database (4.2.0):
+    - Firebase/CoreOnly (~> 6.33.0)
+    - Firebase/Database (~> 6.33.0)
+    - firebase_core
     - Flutter
   - FirebaseAnalytics (6.8.3):
     - FirebaseCore (~> 6.10)
@@ -55,6 +63,9 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
     - nanopb (~> 1.30906.0)
+  - FirebaseDatabase (6.6.0):
+    - FirebaseCore (~> 6.10)
+    - leveldb-library (~> 1.22)
   - FirebaseFirestore (1.18.0)
   - FirebaseInstallations (1.7.0):
     - FirebaseCore (~> 6.10)
@@ -98,6 +109,7 @@ PODS:
   - GoogleUtilities/UserDefaults (6.7.2):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.5.0)
+  - leveldb-library (1.22)
   - location (0.0.1):
     - Flutter
   - nanopb (1.30906.0):
@@ -115,6 +127,7 @@ DEPENDENCIES:
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_database (from `.symlinks/plugins/firebase_database/ios`)
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `6.33.0`)
   - Flutter (from `Flutter`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
@@ -128,12 +141,14 @@ SPEC REPOS:
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreDiagnostics
+    - FirebaseDatabase
     - FirebaseInstallations
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleMaps
     - GoogleUtilities
     - GTMSessionFetcher
+    - leveldb-library
     - nanopb
     - PromisesObjC
 
@@ -148,6 +163,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_database:
+    :path: ".symlinks/plugins/firebase_database/ios"
   FirebaseFirestore:
     :git: https://github.com/invertase/firestore-ios-sdk-frameworks.git
     :tag: 6.33.0
@@ -172,10 +189,12 @@ SPEC CHECKSUMS:
   firebase_analytics: cc9145fff07da060eadd76a77effb6cfa15f5be9
   firebase_auth: 11173868a022c9cece0290a250087f2b8c1ea2ad
   firebase_core: aa25a5dc6b492ecab37587c53d8420135f0cac90
+  firebase_database: beac891635872e3b42571d6b510c6c1b4d94eeb1
   FirebaseAnalytics: 5dd088bd2e67bb9d13dbf792d1164ceaf3052193
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
   FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
+  FirebaseDatabase: 13a865a4b85897462b930eb683bda8f52583713f
   FirebaseFirestore: 4e00bcfe64c4cb493124b87e249abe6c580403c7
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
@@ -185,6 +204,7 @@ SPEC CHECKSUMS:
   GoogleMaps: 4b5346bddfe6911bb89155d43c903020170523ac
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
