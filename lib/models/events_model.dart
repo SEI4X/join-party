@@ -47,7 +47,7 @@ Map<int, Color> eventColors = {
   5: Color(0xff00cea6),
 };
 
-class Events {
+class Event {
   final User sender;
   final String date;
   final String time;
@@ -63,7 +63,7 @@ class Events {
   final bool hasImage;
   // final GroupMessage chat;
 
-  Events({
+  Event({
     this.sender,
     this.date,
     this.time,
@@ -128,14 +128,14 @@ final User steven = User(
 List<User> favorites = [sam, steven, olivia, john, greg];
 
 // EXAMPLE CHATS ON HOME SCREEN
-List<Events> events = [
-  Events(
+List<Event> events = [
+  Event(
     sender: james,
     date: '22.12.2020',
     time: '18:30',
     name: 'Открытие нового бара в центре москвы!',
     place: 'Москва, Китай-Город',
-    position: LatLng(12, 13),
+    position: LatLng(55.753858, 37.620666),
     membersCount: 56,
     members: [james, steven, sophia],
     isActive: true,
@@ -145,65 +145,67 @@ List<Events> events = [
         "Мы приглашаем всех желающих придти на открытие нового бара в центре москвы. Вас ждут конкурсы, бесплатная выпивка и многое другое! Не пропусти=)",
     hasImage: true,
   ),
-  Events(
+  Event(
     sender: olivia,
-    date: '22.12.2020',
-    time: '18:30',
-    name: 'Открытая зимняя выставка в центре москвы',
-    place: 'Москва, Китай-Город',
-    position: LatLng(12, 13),
+    date: '01.12.2020',
+    time: '22:45',
+    name: 'Ночь в третьяковской галлереи',
+    place: 'Москва',
+    position: LatLng(55.746735, 37.593325),
     membersCount: 28,
     members: [james, steven, sophia],
     isActive: true,
+    imageUrl: "assets/images/hallery.jpg",
     colorScheme: 3,
-    hasImage: false,
+    hasImage: true,
   ),
-  Events(
+  Event(
     sender: sophia,
-    date: '22.12.2020',
-    time: '18:30',
-    name: 'Открытая зимняя выставка',
-    place: 'Москва, Китай-Город',
-    position: LatLng(12, 13),
+    date: '14.12.2020',
+    time: '20:30',
+    name: "Живая музыка в баре \"Биродром\"",
+    place: 'Москва, Полярная улица',
+    position: LatLng(55.870701, 37.640031),
     membersCount: 321,
     members: [james, steven, sophia],
     isActive: true,
     colorScheme: 2,
     hasImage: false,
   ),
-  Events(
+  Event(
     sender: greg,
-    date: '22.12.2020',
-    time: '18:30',
-    name: 'Открытая зимняя выставка',
-    place: 'Москва, Китай-Город',
-    position: LatLng(12, 13),
+    date: '18.11.2020',
+    time: '10:00',
+    name: 'День открытых дверей в МГТУ им. Н.Э.Баумана',
+    place: 'Москва, Басманный проезд',
+    position: LatLng(55.766038, 37.684488),
     membersCount: 3,
+    imageUrl: "assets/images/mstu.jpg",
     members: [james, steven, sophia],
     isActive: true,
     colorScheme: 5,
-    hasImage: false,
+    hasImage: true,
   ),
-  Events(
+  Event(
     sender: sam,
-    date: '22.12.2020',
-    time: '18:30',
-    name: 'Открытая зимняя выставка',
-    place: 'Москва, Китай-Город',
-    position: LatLng(12, 13),
+    date: '05.11.2020',
+    time: '14:00',
+    name: 'Покатушки на велосипедах',
+    place: 'Москва, Измайловский лес',
+    position: LatLng(55.784402, 37.759024),
     membersCount: 5829,
     members: [james, steven, sophia],
     isActive: true,
     colorScheme: 4,
     hasImage: false,
   ),
-  Events(
+  Event(
     sender: steven,
-    date: '22.12.2020',
-    time: '18:30',
-    name: 'Открытая зимняя выставка',
-    place: 'Москва, Китай-Город',
-    position: LatLng(12, 13),
+    date: '9.11.2020',
+    time: '18:00',
+    name: 'Прогулка по ВДНХ',
+    place: 'Москва, ВДНХ',
+    position: LatLng(55.830338, 37.631082),
     membersCount: 56,
     members: [james, steven, sophia],
     isActive: true,
