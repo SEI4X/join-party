@@ -23,7 +23,7 @@ class ChatsPage extends StatelessWidget {
                 ),
               ),
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
+                margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10),
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 decoration: BoxDecoration(
                   gradient: userGradients[chat.sender.colorScheme],
@@ -35,7 +35,7 @@ class ChatsPage extends StatelessWidget {
                       offset: Offset(0, 2), // changes position of shadow
                     ),
                   ],
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
