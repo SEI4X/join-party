@@ -11,11 +11,11 @@ class Review {
 
 // First review
 final Review firstReview =
-    Review(user: greg, date: "02:24:2020", text: "Good man");
+    Review(user: greg, date: "2 Apr 2020", text: "Good man");
 
 //Second review
 final Review secondReview =
-    Review(user: john, date: "02:24:2020", text: "Where my money, man?");
+    Review(user: john, date: "2 Apr 2020", text: "Where my money, man?");
 
 class Profile {
   final User user;
@@ -36,7 +36,7 @@ class Profile {
 
 final Profile profile = Profile(
     user: james,
-    about: "My life, my rules",
+    about: "My life, my rules.",
     events: 16,
     awards: 9,
     friends: 28,

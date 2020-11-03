@@ -23,20 +23,42 @@ class ChatsPage extends StatelessWidget {
                 ),
               ),
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
+                margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10),
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 decoration: BoxDecoration(
-                  color: chat.unread ? Color(0xFFFFEFEE) : Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  gradient: userGradients[chat.sender.colorScheme],
+                  boxShadow: [
+                    BoxShadow(
+                      color: userShadows[chat.sender.colorScheme],
+                      spreadRadius: 2,
+                      blurRadius: 4,
+                      offset: Offset(0, 2), // changes position of shadow
+                    ),
+                  ],
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        CircleAvatar(
-                          radius: 35.0,
-                          backgroundImage: AssetImage(chat.sender.imageUrl),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              width: 76,
+                              height: 76,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(38)),
+                                color: Color(0xffffffff),
+                              ),
+                            ),
+                            CircleAvatar(
+                              radius: 35.0,
+                              backgroundImage: AssetImage(chat.sender.imageUrl),
+                            )
+                          ],
                         ),
                         SizedBox(width: 10.0),
                         Column(
@@ -45,7 +67,7 @@ class ChatsPage extends StatelessWidget {
                             Text(
                               chat.sender.name,
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: Colors.white,
                                 fontSize: 15.0,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -56,7 +78,7 @@ class ChatsPage extends StatelessWidget {
                               child: Text(
                                 chat.text,
                                 style: TextStyle(
-                                  color: Colors.blueGrey,
+                                  color: Colors.white,
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -72,7 +94,7 @@ class ChatsPage extends StatelessWidget {
                         Text(
                           chat.time,
                           style: TextStyle(
-                            color: Colors.grey,
+                            color: Colors.white,
                             fontSize: 15.0,
                             fontWeight: FontWeight.bold,
                           ),
@@ -83,14 +105,14 @@ class ChatsPage extends StatelessWidget {
                                 width: 40.0,
                                 height: 20.0,
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 alignment: Alignment.center,
                                 child: Text(
                                   'NEW',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: userShadows[chat.sender.colorScheme],
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.bold,
                                   ),

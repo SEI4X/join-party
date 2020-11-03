@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
 import 'package:join_party/profile%20modules/profile_page.dart';
 import 'chats_modules/chats_page.dart';
-import 'package:join_party/map_modules/search_bar.dart';
 import 'map_modules/map_page.dart';
+import 'events_modules/events_page.dart';
+
+import 'package:join_party/map_modules/search_bar.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -18,8 +20,8 @@ BottomIcons bottomIcons = BottomIcons.Map;
 
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   static final tabs = [
-    Center(child: Text("Maps")),
-    Center(child: Text("Events")),
+    Center(child: MapPage()),
+    Center(child: EventsPage()),
     Center(child: ChatsPage()),
     Center(child: ProfilePage()),
   ];
@@ -50,10 +52,10 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     color: Colors.black26,
                     spreadRadius: 1,
                     blurRadius: 2,
-                    offset: Offset(0, 0), // changes position of shadow
+                    offset: Offset(0, 0),
                   ),
                 ],
-               ),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -104,7 +106,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                           : bottomIcons == BottomIcons.Chats
                               ? Icon(EvaIcons.searchOutline,
                                   color: Colors.blueGrey)
-                              : Container(width: 30),
+                              : Icon(EvaIcons.moreVerticalOutline,
+                                  color: Colors.blueGrey),
                 ],
               ),
             ),
