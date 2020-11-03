@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "60668590474",
+    "firebase_url": "https://directed-racer-293408.firebaseio.com",
+    "project_id": "directed-racer-293408",
+    "storage_bucket": "directed-racer-293408.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:60668590474:android:dc376164e5a4b3e3457073",
+        "android_client_info": {
+          "package_name": "com.example.join_party"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "60668590474-cq3srg1n6dsqs3l6vr7oaer8uqgsiftr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU7pXAPBiYTOrSA-b9NFpiFAcHEivo2Y8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "60668590474-cq3srg1n6dsqs3l6vr7oaer8uqgsiftr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "60668590474-jbnqf5g3lgac2n9e5b1idrv2lo2ugmp0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.joinParty"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

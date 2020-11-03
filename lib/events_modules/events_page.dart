@@ -13,7 +13,7 @@ class EventsPage extends StatelessWidget {
         child: ListView.builder(
           itemCount: events.length,
           itemBuilder: (BuildContext context, int index) {
-            final Events event = events[index];
+            final Event event = events[index];
             return GestureDetector(
               onTap: () => Navigator.push(
                 context,
