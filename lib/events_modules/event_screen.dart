@@ -292,7 +292,6 @@ class _EventScreenState extends State<EventScreen> {
   Widget organizerContainer() {
     return Container(
       child: Container(
-        height: 130,
         constraints: BoxConstraints(minHeight: 50),
         width: (MediaQuery.of(context).size.width) - 14,
         margin: EdgeInsets.only(top: 5, bottom: 10, left: 10, right: 10),

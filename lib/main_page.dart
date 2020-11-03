@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
+import 'package:join_party/profile%20modules/profile_page.dart';
 import 'chats_modules/chats_page.dart';
 import 'map_modules/map_page.dart';
 import 'events_modules/events_page.dart';
@@ -22,7 +23,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
     Center(child: MapPage()),
     Center(child: EventsPage()),
     Center(child: ChatsPage()),
-    Center(child: Text("Profile")),
+    Center(child: ProfilePage()),
   ];
 
   int menuDuration = 125;
@@ -51,7 +52,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     color: Colors.black26,
                     spreadRadius: 1,
                     blurRadius: 2,
-                    offset: Offset(0, 0), // changes position of shadow
+                    offset: Offset(0, 0),
                   ),
                 ],
               ),
@@ -105,7 +106,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                           : bottomIcons == BottomIcons.Chats
                               ? Icon(EvaIcons.searchOutline,
                                   color: Colors.blueGrey)
-                              : Container(width: 30),
+                              : Icon(EvaIcons.moreVerticalOutline,
+                                  color: Colors.blueGrey),
                 ],
               ),
             ),
