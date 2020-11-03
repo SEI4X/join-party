@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:join_party/events_modules/event_screen_demo.dart';
 import 'package:platform_maps_flutter/platform_maps_flutter.dart';
 import 'package:join_party/models/events_model.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_database/firebase_database.dart' as fbase;
 
 class MapPage extends StatefulWidget {
   @override
@@ -98,11 +98,11 @@ class _MapPageState extends State<MapPage> {
             ? Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 500,
+                  height: 600,
                   child: Stack(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 30),
+                        padding: const EdgeInsets.only(top: 30, bottom: 20),
                         child: EventScreenDemo(
                           event: _event,
                         ),
