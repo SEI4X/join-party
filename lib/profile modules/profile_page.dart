@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:join_party/models/message_model.dart';
 import 'package:join_party/models/profile_model.dart';
-import 'package:join_party/models/events_model.dart';
+import 'package:join_party/models/colors.dart';
 
 String review = 'Reviews (' + profile.review.length.toString() + ')';
 String userName = "${profile.user.name} ${profile.user.secondName}";
@@ -29,7 +28,7 @@ class ProfilePage extends StatelessWidget {
             Text(
               topText,
               style: TextStyle(
-                color: eventColors[profile.user.colorScheme],
+                color: myColors[profile.user.colorScheme],
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
@@ -73,7 +72,7 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ],
                           borderRadius: BorderRadius.all(Radius.circular(38)),
-                          color: eventColors[profile.user.colorScheme],
+                          color: myColors[profile.user.colorScheme],
                         ),
                       ),
                       CircleAvatar(
@@ -122,8 +121,7 @@ class ProfilePage extends StatelessWidget {
                                   child: Image(
                                     image:
                                         AssetImage("assets/images/vk-logo.png"),
-                                    color:
-                                        eventColors[profile.user.colorScheme],
+                                    color: myColors[profile.user.colorScheme],
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -138,8 +136,7 @@ class ProfilePage extends StatelessWidget {
                                   child: Image(
                                     image: AssetImage(
                                         "assets/images/telegram-logo.png"),
-                                    color:
-                                        eventColors[profile.user.colorScheme],
+                                    color: myColors[profile.user.colorScheme],
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -154,8 +151,7 @@ class ProfilePage extends StatelessWidget {
                                   child: Image(
                                     image: AssetImage(
                                         "assets/images/inst-logo.png"),
-                                    color:
-                                        eventColors[profile.user.colorScheme],
+                                    color: myColors[profile.user.colorScheme],
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -170,8 +166,7 @@ class ProfilePage extends StatelessWidget {
                                   child: Image(
                                     image: AssetImage(
                                         "assets/images/tiktok-logo.png"),
-                                    color:
-                                        eventColors[profile.user.colorScheme],
+                                    color: myColors[profile.user.colorScheme],
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -233,11 +228,11 @@ class ProfilePage extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        gradient: userGradients[review.user.colorScheme],
+        gradient: myGradient[review.user.colorScheme],
         borderRadius: BorderRadius.all(Radius.circular(20)),
         boxShadow: [
           BoxShadow(
-            color: userShadows[review.user.colorScheme],
+            color: myShadows[review.user.colorScheme],
             spreadRadius: 1,
             blurRadius: 4,
             offset: Offset(0, 2), // changes position of shadow
@@ -364,7 +359,7 @@ class ProfilePage extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 17,
-                      color: eventColors[profile.user.colorScheme],
+                      color: myColors[profile.user.colorScheme],
                     )),
               )
             ],

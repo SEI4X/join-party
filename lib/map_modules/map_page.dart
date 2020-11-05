@@ -4,8 +4,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:join_party/events_modules/event_screen_demo.dart';
+import 'package:join_party/models/colors.dart';
 import 'package:platform_maps_flutter/platform_maps_flutter.dart';
 import 'package:join_party/models/events_model.dart';
+import 'package:join_party/events_modules/event_create_page.dart';
 import 'package:firebase_database/firebase_database.dart' as fbase;
 
 class MapPage extends StatefulWidget {
@@ -61,7 +63,13 @@ class _MapPageState extends State<MapPage> {
     zoom: 12,
   );
 
-  addEventOnMap() {}
+  _createNewEvent(LatLng pressedPoint) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => EventCreatePage()),
+    );
+    setState(() {});
+  }
 
   @override
   void dispose() {
@@ -90,7 +98,7 @@ class _MapPageState extends State<MapPage> {
             await _getMarkers();
             setState(() {});
           },
-          onLongPress: addEventOnMap(),
+          onLongPress: _createNewEvent,
           myLocationButtonEnabled: false,
           zoomControlsEnabled: false,
         ),
@@ -151,7 +159,7 @@ class _MapPageState extends State<MapPage> {
                               Text(
                                 _event.date,
                                 style: TextStyle(
-                                  color: eventColors[_event.colorScheme],
+                                  color: myColors[_event.colorScheme],
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18,
                                 ),

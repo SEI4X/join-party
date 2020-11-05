@@ -73,7 +73,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     bottomIcons == BottomIcons.Map
                         ? "Map"
                         : bottomIcons == BottomIcons.Events
-                            ? "Events"
+                            ? "My events"
                             : bottomIcons == BottomIcons.Chats
                                 ? "Chats"
                                 : "Profile",
@@ -201,7 +201,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                               vsync: this,
                               child: Text(
                                 bottomIcons == BottomIcons.Events
-                                    ? "  Events"
+                                    ? "  My events"
                                     : "",
                                 style: TextStyle(
                                     color: Colors.pink[400],

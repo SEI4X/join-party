@@ -1,7 +1,9 @@
+import 'dart:ffi';
 import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:join_party/models/colors.dart';
 import '../models/events_model.dart';
 
 class EventScreenDemo extends StatefulWidget {
@@ -14,7 +16,7 @@ class EventScreenDemo extends StatefulWidget {
 
 class _EventScreenDemoState extends State<EventScreenDemo> {
   Widget headerImage() {
-    return widget.event.hasImage
+    return widget.event.imageUrl == null
         ? ClipPath(
             clipper: MyClipper(),
             child: Image(
@@ -71,7 +73,7 @@ class _EventScreenDemoState extends State<EventScreenDemo> {
                 widget.event.place,
                 style: TextStyle(
                     fontSize: 16,
-                    color: eventColors[widget.event.colorScheme],
+                    color: myColors[widget.event.colorScheme],
                     fontWeight: FontWeight.w500),
               ),
             ),
@@ -110,7 +112,7 @@ class _EventScreenDemoState extends State<EventScreenDemo> {
               child: Text(
                 "Join Party",
                 style: TextStyle(
-                  color: eventColors[widget.event.colorScheme],
+                  color: myColors[widget.event.colorScheme],
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
                 ),
@@ -140,9 +142,9 @@ class _EventScreenDemoState extends State<EventScreenDemo> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    widget.event.membersCount.toString(),
+                    widget.event.members.length.toString(),
                     style: TextStyle(
-                        color: eventColors[widget.event.colorScheme],
+                        color: myColors[widget.event.colorScheme],
                         fontWeight: FontWeight.w700,
                         fontSize: 17),
                   ),
@@ -212,7 +214,7 @@ class _EventScreenDemoState extends State<EventScreenDemo> {
           child: Text(
             "Chat just for members",
             style: TextStyle(
-              color: eventColors[widget.event.colorScheme],
+              color: myColors[widget.event.colorScheme],
               fontWeight: FontWeight.w600,
               fontSize: 18,
             ),
@@ -333,13 +335,13 @@ class _EventScreenDemoState extends State<EventScreenDemo> {
                               ),
                             ],
                             borderRadius: BorderRadius.all(Radius.circular(38)),
-                            color: eventColors[widget.event.colorScheme],
+                            color: myColors[widget.event.colorScheme],
                           ),
                         ),
                         CircleAvatar(
                           radius: 35.0,
                           backgroundImage:
-                              AssetImage(widget.event.sender.imageUrl),
+                              AssetImage(widget.event.creator.imageUrl),
                         )
                       ],
                     ),
@@ -350,7 +352,7 @@ class _EventScreenDemoState extends State<EventScreenDemo> {
                           Container(
                             width: MediaQuery.of(context).size.width - 150,
                             child: Text(
-                              widget.event.sender.name,
+                              widget.event.creator.name,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -383,8 +385,7 @@ class _EventScreenDemoState extends State<EventScreenDemo> {
                                     child: Image(
                                       image: AssetImage(
                                           "assets/images/vk-logo.png"),
-                                      color:
-                                          eventColors[widget.event.colorScheme],
+                                      color: myColors[widget.event.colorScheme],
                                     ),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -399,8 +400,7 @@ class _EventScreenDemoState extends State<EventScreenDemo> {
                                     child: Image(
                                       image: AssetImage(
                                           "assets/images/telegram-logo.png"),
-                                      color:
-                                          eventColors[widget.event.colorScheme],
+                                      color: myColors[widget.event.colorScheme],
                                     ),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -415,8 +415,7 @@ class _EventScreenDemoState extends State<EventScreenDemo> {
                                     child: Image(
                                       image: AssetImage(
                                           "assets/images/inst-logo.png"),
-                                      color:
-                                          eventColors[widget.event.colorScheme],
+                                      color: myColors[widget.event.colorScheme],
                                     ),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -431,8 +430,7 @@ class _EventScreenDemoState extends State<EventScreenDemo> {
                                     child: Image(
                                       image: AssetImage(
                                           "assets/images/tiktok-logo.png"),
-                                      color:
-                                          eventColors[widget.event.colorScheme],
+                                      color: myColors[widget.event.colorScheme],
                                     ),
                                     decoration: BoxDecoration(
                                       color: Colors.white,

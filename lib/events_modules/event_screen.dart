@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../models/events_model.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:join_party/models/colors.dart';
 
 class EventScreen extends StatefulWidget {
   final Event event;
@@ -15,7 +16,7 @@ class EventScreen extends StatefulWidget {
 
 class _EventScreenState extends State<EventScreen> {
   Widget headerImage() {
-    return widget.event.hasImage
+    return widget.event.imageUrl == null
         ? ClipPath(
             clipper: MyClipper(),
             child: Image(
@@ -72,7 +73,7 @@ class _EventScreenState extends State<EventScreen> {
                 widget.event.place,
                 style: TextStyle(
                     fontSize: 16,
-                    color: eventColors[widget.event.colorScheme],
+                    color: myColors[widget.event.colorScheme],
                     fontWeight: FontWeight.w500),
               ),
             ),
@@ -111,7 +112,7 @@ class _EventScreenState extends State<EventScreen> {
               child: Text(
                 "Join Party",
                 style: TextStyle(
-                  color: eventColors[widget.event.colorScheme],
+                  color: myColors[widget.event.colorScheme],
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
                 ),
@@ -141,9 +142,9 @@ class _EventScreenState extends State<EventScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    widget.event.membersCount.toString(),
+                    widget.event.members.length.toString(),
                     style: TextStyle(
-                        color: eventColors[widget.event.colorScheme],
+                        color: myColors[widget.event.colorScheme],
                         fontWeight: FontWeight.w700,
                         fontSize: 17),
                   ),
@@ -213,7 +214,7 @@ class _EventScreenState extends State<EventScreen> {
           child: Text(
             "Chat just for members",
             style: TextStyle(
-              color: eventColors[widget.event.colorScheme],
+              color: myColors[widget.event.colorScheme],
               fontWeight: FontWeight.w600,
               fontSize: 18,
             ),
@@ -334,13 +335,13 @@ class _EventScreenState extends State<EventScreen> {
                               ),
                             ],
                             borderRadius: BorderRadius.all(Radius.circular(38)),
-                            color: eventColors[widget.event.colorScheme],
+                            color: myColors[widget.event.colorScheme],
                           ),
                         ),
                         CircleAvatar(
                           radius: 35.0,
                           backgroundImage:
-                              AssetImage(widget.event.sender.imageUrl),
+                              AssetImage(widget.event.creator.imageUrl),
                         )
                       ],
                     ),
@@ -351,7 +352,7 @@ class _EventScreenState extends State<EventScreen> {
                           Container(
                             width: MediaQuery.of(context).size.width - 150,
                             child: Text(
-                              widget.event.sender.name,
+                              widget.event.creator.name,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -384,8 +385,7 @@ class _EventScreenState extends State<EventScreen> {
                                     child: Image(
                                       image: AssetImage(
                                           "assets/images/vk-logo.png"),
-                                      color:
-                                          eventColors[widget.event.colorScheme],
+                                      color: myColors[widget.event.colorScheme],
                                     ),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -400,8 +400,7 @@ class _EventScreenState extends State<EventScreen> {
                                     child: Image(
                                       image: AssetImage(
                                           "assets/images/telegram-logo.png"),
-                                      color:
-                                          eventColors[widget.event.colorScheme],
+                                      color: myColors[widget.event.colorScheme],
                                     ),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -416,8 +415,7 @@ class _EventScreenState extends State<EventScreen> {
                                     child: Image(
                                       image: AssetImage(
                                           "assets/images/inst-logo.png"),
-                                      color:
-                                          eventColors[widget.event.colorScheme],
+                                      color: myColors[widget.event.colorScheme],
                                     ),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -432,8 +430,7 @@ class _EventScreenState extends State<EventScreen> {
                                     child: Image(
                                       image: AssetImage(
                                           "assets/images/tiktok-logo.png"),
-                                      color:
-                                          eventColors[widget.event.colorScheme],
+                                      color: myColors[widget.event.colorScheme],
                                     ),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -531,7 +528,7 @@ class _EventScreenState extends State<EventScreen> {
                   Text(
                     widget.event.date,
                     style: TextStyle(
-                      color: eventColors[widget.event.colorScheme],
+                      color: myColors[widget.event.colorScheme],
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),

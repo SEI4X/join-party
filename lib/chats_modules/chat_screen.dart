@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:join_party/models/colors.dart';
 import '../models/message_model.dart';
 import '../models/user_model.dart';
 
@@ -77,7 +78,7 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: Icon(Icons.photo),
             iconSize: 25.0,
-            color: userColors[widget.user.colorScheme],
+            color: myColors[widget.user.colorScheme],
             onPressed: () {},
           ),
           Expanded(
@@ -92,7 +93,7 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: Icon(Icons.send),
             iconSize: 25.0,
-            color: userColors[widget.user.colorScheme],
+            color: myColors[widget.user.colorScheme],
             onPressed: () {},
           ),
         ],
@@ -103,7 +104,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: userColors[widget.user.colorScheme],
+      backgroundColor: myColors[widget.user.colorScheme],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(
