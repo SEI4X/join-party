@@ -22,7 +22,7 @@ class Profile {
   final String about;
   final int events;
   final int awards;
-  final int friends;
+  List<User> friends = new List<User>();
   List<Review> review = new List<Review>();
 
   Profile(
@@ -39,5 +39,5 @@ final Profile profile = Profile(
     about: "My life, my rules.",
     events: 16,
     awards: 9,
-    friends: 28,
+    friends: [sophia, john, olivia],
     review: [firstReview, secondReview]);

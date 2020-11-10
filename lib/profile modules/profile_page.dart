@@ -3,46 +3,59 @@ import 'package:flutter/material.dart';
 import 'package:join_party/models/message_model.dart';
 import 'package:join_party/models/profile_model.dart';
 import 'package:join_party/models/events_model.dart';
+import 'package:join_party/profile%20modules/friend_list_screen.dart';
+import 'package:join_party/profile%20modules/review_list_screen.dart';
 
 String review = 'Reviews (' + profile.review.length.toString() + ')';
 String userName = "${profile.user.name} ${profile.user.secondName}";
+final blocks = [
+  Center(child: FriendListScreen(profile: profile)),
+];
 
 class ProfilePage extends StatelessWidget {
-  Widget blockInfo(String topText, String bottomText) {
-    return Container(
-        width: 110,
-        padding: EdgeInsets.fromLTRB(5, 10, 5, 5),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 4,
-              offset: Offset(0, 2), // changes position of shadow
-            ),
-          ],
+  Widget blockInfo(String topText, String bottomText, BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => FriendListScreen(profile: profile),
         ),
-        child: Column(
-          children: [
-            Text(
-              topText,
-              style: TextStyle(
-                color: eventColors[profile.user.colorScheme],
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
+      ),
+      child: Container(
+          width: 110,
+          padding: EdgeInsets.fromLTRB(5, 10, 5, 5),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 4,
+                offset: Offset(0, 2), // changes position of shadow
               ),
-            ),
-            Text(
-              bottomText,
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 15.0,
+            ],
+          ),
+          child: Column(
+            children: [
+              Text(
+                topText,
+                style: TextStyle(
+                  color: eventColors[profile.user.colorScheme],
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
-        ));
+              Text(
+                bottomText,
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 15.0,
+                ),
+              ),
+            ],
+          )),
+    );
   }
 
   Widget userInfo(BuildContext context) {
@@ -338,9 +351,9 @@ class ProfilePage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              blockInfo(profile.awards.toString(), 'Awards'),
-              blockInfo(profile.friends.toString(), 'Friends'),
-              blockInfo(profile.events.toString(), 'Events'),
+              blockInfo(profile.awards.toString(), 'Awards', context),
+              blockInfo(profile.friends.length.toString(), 'Friends', context),
+              blockInfo(profile.events.toString(), 'Events', context),
             ],
           )),
       Container(
@@ -357,14 +370,22 @@ class ProfilePage extends StatelessWidget {
                       fontSize: 20,
                     )),
               ),
-              Container(
-                child: Text('View all',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: eventColors[profile.user.colorScheme],
-                    )),
+              GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ReviewListScreen(profile: profile),
+                  ),
+                ),
+                child: Container(
+                  child: Text('View all',
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: eventColors[profile.user.colorScheme],
+                      )),
+                ),
               )
             ],
           )),
