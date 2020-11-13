@@ -1,5 +1,4 @@
 import 'user_model.dart';
-import 'package:flutter/material.dart';
 
 class Message {
   final User sender;

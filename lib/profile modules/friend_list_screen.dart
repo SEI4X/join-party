@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:join_party/models/colors.dart';
 import 'package:join_party/models/profile_model.dart';
-import '../models/message_model.dart';
 import '../models/user_model.dart';
 
 class FriendListScreen extends StatefulWidget {
@@ -22,11 +22,11 @@ class _FreindListScreen extends State<FriendListScreen> {
         margin: const EdgeInsets.fromLTRB(15, 0, 15, 15),
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          gradient: userGradients[friend.colorScheme],
+          gradient: myGradients[friend.colorScheme],
           borderRadius: BorderRadius.all(Radius.circular(20)),
           boxShadow: [
             BoxShadow(
-              color: userShadows[friend.colorScheme],
+              color: myShadows[friend.colorScheme],
               spreadRadius: 1,
               blurRadius: 4,
               offset: Offset(0, 2), // changes position of shadow
@@ -90,7 +90,7 @@ class _FreindListScreen extends State<FriendListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: userColors[profile.user.colorScheme],
+        backgroundColor: myColors[profile.user.colorScheme],
         appBar: AppBar(
           toolbarHeight: 60,
           backgroundColor: Colors.transparent,

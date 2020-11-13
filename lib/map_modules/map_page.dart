@@ -8,7 +8,6 @@ import 'package:join_party/models/colors.dart';
 import 'package:platform_maps_flutter/platform_maps_flutter.dart';
 import 'package:join_party/models/events_model.dart';
 import 'package:join_party/events_modules/event_create_page.dart';
-import 'package:firebase_database/firebase_database.dart' as fbase;
 
 class MapPage extends StatefulWidget {
   @override

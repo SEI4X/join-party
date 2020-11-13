@@ -27,7 +27,7 @@ class ChatsPage extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10),
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 decoration: BoxDecoration(
-                  gradient: myGradient[chat.sender.colorScheme],
+                  gradient: myGradients[chat.sender.colorScheme],
                   boxShadow: [
                     BoxShadow(
                       color: myShadows[chat.sender.colorScheme],

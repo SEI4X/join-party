@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:join_party/models/colors.dart';
 import 'package:join_party/models/profile_model.dart';
-import '../models/message_model.dart';
 
 class ReviewListScreen extends StatefulWidget {
   final Profile profile;
@@ -19,11 +19,11 @@ class _ReviewListScreen extends State<ReviewListScreen> {
       margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        gradient: userGradients[review.user.colorScheme],
+        gradient: myGradients[review.user.colorScheme],
         borderRadius: BorderRadius.all(Radius.circular(20)),
         boxShadow: [
           BoxShadow(
-            color: userShadows[review.user.colorScheme],
+            color: myShadows[review.user.colorScheme],
             spreadRadius: 1,
             blurRadius: 4,
             offset: Offset(0, 2),
@@ -100,7 +100,7 @@ class _ReviewListScreen extends State<ReviewListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: userColors[profile.user.colorScheme],
+        backgroundColor: myColors[profile.user.colorScheme],
         appBar: AppBar(
           toolbarHeight: 60,
           backgroundColor: Colors.transparent,

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:join_party/models/profile_model.dart';
-import 'package:join_party/models/events_model.dart';
 import 'package:join_party/profile%20modules/friend_list_screen.dart';
 import 'package:join_party/profile%20modules/review_list_screen.dart';
 import 'package:join_party/models/colors.dart';
@@ -41,7 +40,7 @@ class ProfilePage extends StatelessWidget {
               Text(
                 topText,
                 style: TextStyle(
-                  color: eventColors[profile.user.colorScheme],
+                  color: myColors[profile.user.colorScheme],
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -242,7 +241,7 @@ class ProfilePage extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        gradient: myGradient[review.user.colorScheme],
+        gradient: myGradients[review.user.colorScheme],
         borderRadius: BorderRadius.all(Radius.circular(20)),
         boxShadow: [
           BoxShadow(
@@ -375,14 +374,15 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 child: Container(
-                child: Text('View all',
-                    textAlign: TextAlign.end,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 17,
-                      color: myColors[profile.user.colorScheme],
-                    )),
-              )
+                  child: Text('View all',
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 17,
+                        color: myColors[profile.user.colorScheme],
+                      )),
+                ),
+              ),
             ],
           )),
       blockReview(profile.review[0], context),

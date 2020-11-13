@@ -39,7 +39,7 @@ class EventsPage extends StatelessWidget {
                       padding: EdgeInsets.only(
                           left: 10.0, top: 10.0, bottom: 10, right: 10),
                       decoration: BoxDecoration(
-                        gradient: myGradient[event.colorScheme],
+                        gradient: myGradients[event.colorScheme],
                         boxShadow: [
                           BoxShadow(
                             color: myShadows[event.colorScheme],

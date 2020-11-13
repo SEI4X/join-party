@@ -17,7 +17,7 @@ Map<int, Color> myColors = {
   5: Color(0xff00cea6),
 };
 
-Map<int, LinearGradient> myGradient = {
+Map<int, LinearGradient> myGradients = {
   1: LinearGradient(
     colors: [Color(0xcc83e2f7), Color(0xcc50bce2)],
     begin: Alignment.topLeft,

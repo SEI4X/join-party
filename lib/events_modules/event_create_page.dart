@@ -108,7 +108,7 @@ class _EventCreatePageState extends State<EventCreatePage> {
                 margin: EdgeInsets.only(bottom: 15),
                 padding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
                 decoration: BoxDecoration(
-                  gradient: myGradient[1],
+                  gradient: myGradients[1],
                   borderRadius: BorderRadius.circular(17),
                   boxShadow: [
                     BoxShadow(
@@ -132,7 +132,7 @@ class _EventCreatePageState extends State<EventCreatePage> {
                 margin: EdgeInsets.only(bottom: 15),
                 padding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
                 decoration: BoxDecoration(
-                  gradient: myGradient[5],
+                  gradient: myGradients[5],
                   borderRadius: BorderRadius.circular(17),
                   boxShadow: [
                     BoxShadow(
@@ -155,7 +155,7 @@ class _EventCreatePageState extends State<EventCreatePage> {
               Container(
                 padding: EdgeInsets.only(bottom: 5, left: 5, right: 5),
                 decoration: BoxDecoration(
-                  gradient: myGradient[2],
+                  gradient: myGradients[2],
                   borderRadius: BorderRadius.circular(17),
                   boxShadow: [
                     BoxShadow(
@@ -205,7 +205,7 @@ class _EventCreatePageState extends State<EventCreatePage> {
                         width: MediaQuery.of(context).size.width / 5 * 3 - 25,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(21),
-                          gradient: myGradient[6],
+                          gradient: myGradients[6],
                           boxShadow: [
                             BoxShadow(
                               color: myShadows[6],
@@ -244,7 +244,7 @@ class _EventCreatePageState extends State<EventCreatePage> {
                         width: MediaQuery.of(context).size.width / 5 * 2 - 10,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(21),
-                          gradient: myGradient[6],
+                          gradient: myGradients[6],
                           boxShadow: [
                             BoxShadow(
                               color: myShadows[6],
