@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
 import 'package:join_party/profile%20modules/profile_page.dart';
@@ -75,7 +73,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     bottomIcons == BottomIcons.Map
                         ? "Map"
                         : bottomIcons == BottomIcons.Events
-                            ? "Events"
+                            ? "My events"
                             : bottomIcons == BottomIcons.Chats
                                 ? "Chats"
                                 : "Profile",
@@ -203,7 +201,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                               vsync: this,
                               child: Text(
                                 bottomIcons == BottomIcons.Events
-                                    ? "  Events"
+                                    ? "  My events"
                                     : "",
                                 style: TextStyle(
                                     color: Colors.pink[400],

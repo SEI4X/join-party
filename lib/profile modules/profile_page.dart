@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:join_party/models/message_model.dart';
 import 'package:join_party/models/profile_model.dart';
 import 'package:join_party/models/events_model.dart';
 import 'package:join_party/profile%20modules/friend_list_screen.dart';
 import 'package:join_party/profile%20modules/review_list_screen.dart';
+import 'package:join_party/models/colors.dart';
 
 String review = 'Reviews (' + profile.review.length.toString() + ')';
 String userName = "${profile.user.name} ${profile.user.secondName}";
@@ -86,7 +86,7 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ],
                           borderRadius: BorderRadius.all(Radius.circular(38)),
-                          color: eventColors[profile.user.colorScheme],
+                          color: myColors[profile.user.colorScheme],
                         ),
                       ),
                       CircleAvatar(
@@ -96,7 +96,7 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: 10),
+                    padding: EdgeInsets.only(left: 15),
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -111,7 +111,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          height: 30,
+                          height: 25,
                           width: MediaQuery.of(context).size.width - 150,
                           child: Text(
                             "${profile.user.city} ${profile.user.country}",
@@ -129,14 +129,13 @@ class ProfilePage extends StatelessWidget {
                             child: Row(
                               children: <Widget>[
                                 Container(
-                                  margin: EdgeInsets.only(right: 5),
+                                  margin: EdgeInsets.only(right: 8),
                                   height: 30,
                                   width: 30,
                                   child: Image(
                                     image:
                                         AssetImage("assets/images/vk-logo.png"),
-                                    color:
-                                        eventColors[profile.user.colorScheme],
+                                    color: myColors[profile.user.colorScheme],
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -145,14 +144,13 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5),
+                                  margin: EdgeInsets.symmetric(horizontal: 8),
                                   height: 30,
                                   width: 30,
                                   child: Image(
                                     image: AssetImage(
                                         "assets/images/telegram-logo.png"),
-                                    color:
-                                        eventColors[profile.user.colorScheme],
+                                    color: myColors[profile.user.colorScheme],
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -161,14 +159,13 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5),
+                                  margin: EdgeInsets.symmetric(horizontal: 8),
                                   height: 30,
                                   width: 30,
                                   child: Image(
                                     image: AssetImage(
                                         "assets/images/inst-logo.png"),
-                                    color:
-                                        eventColors[profile.user.colorScheme],
+                                    color: myColors[profile.user.colorScheme],
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -177,14 +174,13 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5),
+                                  margin: EdgeInsets.symmetric(horizontal: 8),
                                   height: 30,
                                   width: 30,
                                   child: Image(
                                     image: AssetImage(
                                         "assets/images/tiktok-logo.png"),
-                                    color:
-                                        eventColors[profile.user.colorScheme],
+                                    color: myColors[profile.user.colorScheme],
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -205,17 +201,18 @@ class ProfilePage extends StatelessWidget {
             Align(
               alignment: Alignment.topLeft,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: EdgeInsets.only(top: 10, bottom: 5, right: 10),
                 child: Column(
                   children: [
                     Container(
+                      padding: EdgeInsets.only(bottom: 2),
                       width: double.infinity,
                       child: Text(
                         'About',
                         style: TextStyle(
                           color: Colors.blueGrey[700],
                           fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
@@ -226,7 +223,7 @@ class ProfilePage extends StatelessWidget {
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: Colors.blueGrey[700],
-                          fontSize: 18.0,
+                          fontSize: 16.0,
                         ),
                       ),
                     )
@@ -245,11 +242,11 @@ class ProfilePage extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        gradient: userGradients[review.user.colorScheme],
+        gradient: myGradient[review.user.colorScheme],
         borderRadius: BorderRadius.all(Radius.circular(20)),
         boxShadow: [
           BoxShadow(
-            color: userShadows[review.user.colorScheme],
+            color: myShadows[review.user.colorScheme],
             spreadRadius: 1,
             blurRadius: 4,
             offset: Offset(0, 2), // changes position of shadow
@@ -329,7 +326,8 @@ class ProfilePage extends StatelessWidget {
         body: Column(children: [
       Container(
         width: double.infinity,
-        margin: const EdgeInsets.fromLTRB(15, 85, 15, 20),
+        margin: EdgeInsets.fromLTRB(
+            10, MediaQuery.of(context).padding.top.toDouble() + 50, 10, 15),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -345,9 +343,8 @@ class ProfilePage extends StatelessWidget {
         child: userInfo(context),
       ),
       Container(
-          height: 60,
           width: double.infinity,
-          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -359,7 +356,7 @@ class ProfilePage extends StatelessWidget {
       Container(
           height: 60,
           width: double.infinity,
-          margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -367,7 +364,7 @@ class ProfilePage extends StatelessWidget {
                 child: Text(review,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 18,
                     )),
               ),
               GestureDetector(
@@ -378,14 +375,13 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 child: Container(
-                  child: Text('View all',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: eventColors[profile.user.colorScheme],
-                      )),
-                ),
+                child: Text('View all',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 17,
+                      color: myColors[profile.user.colorScheme],
+                    )),
               )
             ],
           )),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:join_party/models/colors.dart';
 import '../models/message_model.dart';
 import 'chat_screen.dart';
 
@@ -26,10 +27,10 @@ class ChatsPage extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10),
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 decoration: BoxDecoration(
-                  gradient: userGradients[chat.sender.colorScheme],
+                  gradient: myGradient[chat.sender.colorScheme],
                   boxShadow: [
                     BoxShadow(
-                      color: userShadows[chat.sender.colorScheme],
+                      color: myShadows[chat.sender.colorScheme],
                       spreadRadius: 2,
                       blurRadius: 4,
                       offset: Offset(0, 2), // changes position of shadow
@@ -112,7 +113,7 @@ class ChatsPage extends StatelessWidget {
                                 child: Text(
                                   'NEW',
                                   style: TextStyle(
-                                    color: userShadows[chat.sender.colorScheme],
+                                    color: myShadows[chat.sender.colorScheme],
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.bold,
                                   ),

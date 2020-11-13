@@ -1,20 +1,20 @@
+import 'dart:ffi';
 import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../models/events_model.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:join_party/models/colors.dart';
+import '../models/events_model.dart';
 
-class EventScreen extends StatefulWidget {
+class EventScreenDemo extends StatefulWidget {
   final Event event;
-  EventScreen({this.event});
+  EventScreenDemo({this.event});
 
   @override
-  _EventScreenState createState() => _EventScreenState();
+  _EventScreenDemoState createState() => _EventScreenDemoState();
 }
 
-class _EventScreenState extends State<EventScreen> {
+class _EventScreenDemoState extends State<EventScreenDemo> {
   Widget headerImage() {
     return widget.event.imageUrl == null
         ? ClipPath(
@@ -469,78 +469,30 @@ class _EventScreenState extends State<EventScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffefefef),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            padding:
-                EdgeInsets.only(top: MediaQuery.of(context).padding.top + 22),
-            physics: ClampingScrollPhysics(),
-            dragStartBehavior: DragStartBehavior.down,
-            child: Container(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).padding.bottom),
-              color: Color(0xffefefef),
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    mainBlock(),
-                    buttonsBlock(),
-                    chatButton(),
-                    aboutContainer(),
-                    organizerContainer(),
-                  ],
-                ),
-              ),
+    return SizedBox(
+      height: 800,
+      width: MediaQuery.of(context).size.width,
+      child: SingleChildScrollView(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 30),
+        physics: ClampingScrollPhysics(),
+        dragStartBehavior: DragStartBehavior.down,
+        child: Container(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+          color: Color(0xffefefef),
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                mainBlock(),
+                buttonsBlock(),
+                chatButton(),
+                aboutContainer(),
+                organizerContainer(),
+              ],
             ),
           ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).padding.top + 40,
-              padding: EdgeInsets.only(
-                  left: 24, right: 24, top: MediaQuery.of(context).padding.top),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey[400],
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: Offset(0, 0), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  IconButton(
-                    iconSize: 25,
-                    icon: Icon(EvaIcons.arrowBackOutline),
-                    color: Colors.blueGrey[700],
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Text(
-                    widget.event.date,
-                    style: TextStyle(
-                      color: myColors[widget.event.colorScheme],
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
