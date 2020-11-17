@@ -4,7 +4,12 @@ import 'package:join_party/models/colors.dart';
 import '../models/events_model.dart';
 import 'event_screen.dart';
 
-class EventsPage extends StatelessWidget {
+class EventsPage extends StatefulWidget {
+  @override
+  _EventsPageState createState() => _EventsPageState();
+}
+
+class _EventsPageState extends State<EventsPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
