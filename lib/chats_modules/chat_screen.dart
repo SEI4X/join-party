@@ -7,8 +7,9 @@ import '../models/user_model.dart';
 
 class ChatScreen extends StatefulWidget {
   final User user;
+  final List<Message> messages;
 
-  ChatScreen({this.user});
+  ChatScreen({this.user, this.messages});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -108,7 +109,7 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(
-          widget.user.name,
+          widget.user.firstName,
           style: TextStyle(
             fontSize: 28.0,
             fontWeight: FontWeight.bold,
@@ -148,7 +149,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemCount: messages.length,
                     itemBuilder: (BuildContext context, int index) {
                       final Message message = messages[index];
-                      final bool isMe = message.sender.id == currentUser.id;
+                      final bool isMe = message.sender.id == user.id;
                       return _buildMessage(message, isMe);
                     },
                   ),

@@ -129,7 +129,7 @@ class _EventsPageState extends State<EventsPage> {
                                     ),
                                     SizedBox(height: 6.0),
                                     Text(
-                                      event.creator.name,
+                                      event.creator.firstName,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 12.0,

@@ -19,11 +19,11 @@ class _ReviewListScreen extends State<ReviewListScreen> {
       margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        gradient: myGradients[review.user.colorScheme],
+        gradient: myGradients[review.sender.colorScheme],
         borderRadius: BorderRadius.all(Radius.circular(20)),
         boxShadow: [
           BoxShadow(
-            color: myShadows[review.user.colorScheme],
+            color: myShadows[review.sender.colorScheme],
             spreadRadius: 1,
             blurRadius: 4,
             offset: Offset(0, 2),
@@ -48,7 +48,7 @@ class _ReviewListScreen extends State<ReviewListScreen> {
                   ),
                   CircleAvatar(
                     radius: 35.0,
-                    backgroundImage: AssetImage(review.user.imageUrl),
+                    backgroundImage: AssetImage(review.sender.imageUrl),
                   )
                 ],
               ),
@@ -57,7 +57,7 @@ class _ReviewListScreen extends State<ReviewListScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    review.user.name,
+                    review.sender.firstName,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15.0,

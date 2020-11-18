@@ -62,7 +62,7 @@ class _FreindListScreen extends State<FriendListScreen> {
                           Container(
                             width: MediaQuery.of(context).size.width - 150,
                             child: Text(
-                              "${friend.name} ${friend.secondName}",
+                              "${friend.firstName} ${friend.secondName}",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,

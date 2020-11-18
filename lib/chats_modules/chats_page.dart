@@ -13,13 +13,14 @@ class ChatsPage extends StatelessWidget {
         child: ListView.builder(
           itemCount: chats.length,
           itemBuilder: (BuildContext context, int index) {
-            final Message chat = chats[index];
+            final Chat chat = chats[index];
             return GestureDetector(
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (_) => ChatScreen(
                     user: chat.sender,
+                    messages: chat.messages,
                   ),
                 ),
               ),
@@ -66,7 +67,7 @@ class ChatsPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              chat.sender.name,
+                              chat.sender.firstName,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15.0,
@@ -77,7 +78,7 @@ class ChatsPage extends StatelessWidget {
                             Container(
                               width: MediaQuery.of(context).size.width * 0.45,
                               child: Text(
-                                chat.text,
+                                chat.messages[0].text,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15.0,
@@ -93,7 +94,7 @@ class ChatsPage extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          chat.time,
+                          chat.messages[0].time,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15.0,
@@ -101,7 +102,7 @@ class ChatsPage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 5.0),
-                        chat.unread
+                        chat.messages[0].unread
                             ? Container(
                                 width: 40.0,
                                 height: 20.0,

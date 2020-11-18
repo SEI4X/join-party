@@ -6,7 +6,7 @@ import 'package:join_party/profile%20modules/review_list_screen.dart';
 import 'package:join_party/models/colors.dart';
 
 String review = 'Reviews (' + profile.review.length.toString() + ')';
-String userName = "${profile.user.name} ${profile.user.secondName}";
+String userName = "${profile.user.firstName} ${profile.user.secondName}";
 final blocks = [
   Center(child: FriendListScreen(profile: profile)),
 ];
@@ -241,11 +241,11 @@ class ProfilePage extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        gradient: myGradients[review.user.colorScheme],
+        gradient: myGradients[review.sender.colorScheme],
         borderRadius: BorderRadius.all(Radius.circular(20)),
         boxShadow: [
           BoxShadow(
-            color: myShadows[review.user.colorScheme],
+            color: myShadows[review.sender.colorScheme],
             spreadRadius: 1,
             blurRadius: 4,
             offset: Offset(0, 2), // changes position of shadow
@@ -270,7 +270,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 35.0,
-                    backgroundImage: AssetImage(review.user.imageUrl),
+                    backgroundImage: AssetImage(review.sender.imageUrl),
                   )
                 ],
               ),
@@ -279,7 +279,7 @@ class ProfilePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    review.user.name,
+                    review.sender.firstName,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15.0,

@@ -352,7 +352,7 @@ class _EventScreenState extends State<EventScreen> {
                           Container(
                             width: MediaQuery.of(context).size.width - 150,
                             child: Text(
-                              widget.event.creator.name,
+                              widget.event.creator.firstName,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
