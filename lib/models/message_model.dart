@@ -29,8 +29,7 @@ class Message {
 
 class EventChat {
   final Event event;
-  List<User> users = new List<User>();
   List<Message> messages = new List<Message>();
 
-  EventChat({this.event, this.users, this.messages});
+  EventChat({this.event, this.messages});
 }
