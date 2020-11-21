@@ -16,7 +16,7 @@ class EventScreen extends StatefulWidget {
 
 class _EventScreenState extends State<EventScreen> {
   Widget headerImage() {
-    return widget.event.imageUrl == null
+    return widget.event.imageUrl != null
         ? ClipPath(
             clipper: MyClipper(),
             child: Image(

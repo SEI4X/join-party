@@ -14,7 +14,7 @@ class _EventsPageState extends State<EventsPage> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 50),
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(gradient: myGradients[6]),
       child: events.length == 0
           ? Container(
               child: Align(
@@ -44,13 +44,14 @@ class _EventsPageState extends State<EventsPage> {
                       padding: EdgeInsets.only(
                           left: 10.0, top: 10.0, bottom: 10, right: 10),
                       decoration: BoxDecoration(
-                        gradient: myGradients[event.colorScheme],
+                        color: Color(0xffffffff),
+                        //gradient: myGradients[event.colorScheme],
                         boxShadow: [
                           BoxShadow(
-                            color: myShadows[event.colorScheme],
-                            spreadRadius: 2,
+                            color: myShadows[6],
+                            spreadRadius: 1,
                             blurRadius: 4,
-                            offset: Offset(0, 2), // changes position of shadow
+                            offset: Offset(0, 3), // changes position of shadow
                           ),
                         ],
                         borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -87,8 +88,8 @@ class _EventsPageState extends State<EventsPage> {
                                         event.members.length.toString(),
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12.0,
+                                          color: myColors[event.colorScheme],
+                                          fontSize: 14.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -96,8 +97,8 @@ class _EventsPageState extends State<EventsPage> {
                                         "Members",
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12.0,
+                                          color: Colors.grey[600],
+                                          fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
                                         ),
                                       )
@@ -121,8 +122,8 @@ class _EventsPageState extends State<EventsPage> {
                                         maxLines: 1,
                                         softWrap: false,
                                         style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.0,
+                                          color: myColors[event.colorScheme],
+                                          fontSize: 16.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -131,8 +132,9 @@ class _EventsPageState extends State<EventsPage> {
                                     Text(
                                       event.creator.name,
                                       style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12.0,
+                                        color:
+                                            myColors[event.creator.colorScheme],
+                                        fontSize: 14.0,
                                         fontWeight: FontWeight.normal,
                                       ),
                                     ),
@@ -145,13 +147,13 @@ class _EventsPageState extends State<EventsPage> {
                                           Icon(
                                             EvaIcons.pin,
                                             size: 15,
-                                            color: Colors.white,
+                                            color: myColors[event.colorScheme],
                                           ),
                                           Text(
                                             " ${event.place}",
                                             style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12.0,
+                                              color: Colors.grey[600],
+                                              fontSize: 14.0,
                                               fontWeight: FontWeight.w600,
                                             ),
                                             overflow: TextOverflow.ellipsis,
@@ -176,8 +178,8 @@ class _EventsPageState extends State<EventsPage> {
                                     event.time,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12.0,
+                                      color: myColors[event.colorScheme],
+                                      fontSize: 14.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -188,8 +190,8 @@ class _EventsPageState extends State<EventsPage> {
                                     event.date,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12.0,
+                                      color: Colors.grey[600],
+                                      fontSize: 14.0,
                                       fontWeight: FontWeight.normal,
                                     ),
                                   ),

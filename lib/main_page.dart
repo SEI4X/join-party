@@ -4,6 +4,8 @@ import 'package:join_party/profile%20modules/profile_page.dart';
 import 'chats_modules/chats_page.dart';
 import 'map_modules/map_page.dart';
 import 'events_modules/events_page.dart';
+import 'events_modules/event_create_page.dart';
+import 'models/colors.dart';
 
 import 'package:join_party/map_modules/search_bar.dart';
 
@@ -47,9 +49,9 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black26,
-                    spreadRadius: 1,
-                    blurRadius: 2,
+                    color: myShadows[6],
+                    spreadRadius: 2,
+                    blurRadius: 3,
                     offset: Offset(0, 0),
                   ),
                 ],
@@ -100,7 +102,19 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                           },
                         )
                       : bottomIcons == BottomIcons.Events
-                          ? Container(width: 30)
+                          ? IconButton(
+                              iconSize: 25,
+                              icon: Icon(EvaIcons.plus),
+                              color: Colors.blueGrey,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => EventCreatePage()),
+                                );
+                                setState(() {});
+                              },
+                            )
                           : bottomIcons == BottomIcons.Chats
                               ? Icon(EvaIcons.searchOutline,
                                   color: Colors.blueGrey)
@@ -124,10 +138,10 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black26,
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: Offset(0, 0), // changes position of shadow
+                    color: myShadows[6],
+                    spreadRadius: 2,
+                    blurRadius: 3,
+                    offset: Offset(0, 1), // changes position of shadow
                   ),
                 ],
               ),

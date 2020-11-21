@@ -6,7 +6,7 @@ Map<int, Color> myShadows = {
   3: Color(0xeebf4d7c),
   4: Color(0xee9a4ead),
   5: Color(0xee38a894),
-  6: Color(0xee737373)
+  6: Color(0xaacccccf)
 };
 
 Map<int, Color> myColors = {
@@ -44,7 +44,7 @@ Map<int, LinearGradient> myGradients = {
     end: Alignment.bottomRight,
   ),
   6: LinearGradient(
-    colors: [Color(0xeeadadad), Color(0xee999999)],
+    colors: [Color(0xfff7fdff), Color(0xffebf3f7)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   ),

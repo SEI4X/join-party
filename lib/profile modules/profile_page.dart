@@ -21,17 +21,17 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       child: Container(
-          width: 110,
-          padding: EdgeInsets.fromLTRB(5, 10, 5, 5),
+          width: MediaQuery.of(context).size.width / 3 - 16,
+          padding: EdgeInsets.fromLTRB(5, 6, 5, 5),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(16)),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color: myShadows[6],
                 spreadRadius: 1,
                 blurRadius: 4,
-                offset: Offset(0, 2), // changes position of shadow
+                offset: Offset(0, 3), // changes position of shadow
               ),
             ],
           ),
@@ -41,15 +41,15 @@ class ProfilePage extends StatelessWidget {
                 topText,
                 style: TextStyle(
                   color: myColors[profile.user.colorScheme],
-                  fontSize: 20.0,
+                  fontSize: 16.5,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
                 bottomText,
                 style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 15.0,
+                  color: Colors.grey[600],
+                  fontSize: 14.2,
                 ),
               ),
             ],
@@ -77,11 +77,11 @@ class ProfilePage extends StatelessWidget {
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey[350],
+                              color: myShadows[6],
                               spreadRadius: 1,
-                              blurRadius: 2,
+                              blurRadius: 4,
                               offset:
-                                  Offset(0, 2), // changes position of shadow
+                                  Offset(0, 3), // changes position of shadow
                             ),
                           ],
                           borderRadius: BorderRadius.all(Radius.circular(38)),
@@ -241,14 +241,14 @@ class ProfilePage extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        gradient: myGradients[review.user.colorScheme],
+        color: Color(0xffffffff),
         borderRadius: BorderRadius.all(Radius.circular(20)),
         boxShadow: [
           BoxShadow(
-            color: myShadows[review.user.colorScheme],
+            color: myShadows[6],
             spreadRadius: 1,
             blurRadius: 4,
-            offset: Offset(0, 2), // changes position of shadow
+            offset: Offset(0, 3), // changes position of shadow
           ),
         ],
       ),
@@ -281,7 +281,7 @@ class ProfilePage extends StatelessWidget {
                   Text(
                     review.user.name,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: myColors[review.user.colorScheme],
                       fontSize: 15.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -292,7 +292,7 @@ class ProfilePage extends StatelessWidget {
                     child: Text(
                       review.text,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.grey[600],
                         fontSize: 15.0,
                         fontWeight: FontWeight.w600,
                       ),
@@ -308,7 +308,7 @@ class ProfilePage extends StatelessWidget {
             child: Text(
               review.date,
               style: TextStyle(
-                color: Colors.white,
+                color: myColors[review.user.colorScheme],
                 fontSize: 15.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -321,72 +321,77 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(children: [
-      Container(
-        width: double.infinity,
-        margin: EdgeInsets.fromLTRB(
-            10, MediaQuery.of(context).padding.top.toDouble() + 50, 10, 15),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 4,
-              offset: Offset(0, 2), // changes position of shadow
+    return Container(
+      decoration: BoxDecoration(gradient: myGradients[6]),
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.fromLTRB(
+                10, MediaQuery.of(context).padding.top.toDouble() + 50, 10, 15),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              boxShadow: [
+                BoxShadow(
+                  color: myShadows[6],
+                  spreadRadius: 1,
+                  blurRadius: 4,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
             ),
-          ],
-        ),
-        child: userInfo(context),
-      ),
-      Container(
-          width: double.infinity,
-          margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              blockInfo(profile.awards.toString(), 'Awards', context),
-              blockInfo(profile.friends.length.toString(), 'Friends', context),
-              blockInfo(profile.events.toString(), 'Events', context),
-            ],
-          )),
-      Container(
-          height: 60,
-          width: double.infinity,
-          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                child: Text(review,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    )),
-              ),
-              GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ReviewListScreen(profile: profile),
+            child: userInfo(context),
+          ),
+          Container(
+              width: double.infinity,
+              margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  blockInfo(profile.awards.toString(), 'Awards', context),
+                  blockInfo(
+                      profile.friends.length.toString(), 'Friends', context),
+                  blockInfo(profile.events.toString(), 'Events', context),
+                ],
+              )),
+          Container(
+              height: 60,
+              width: double.infinity,
+              margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Text(review,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        )),
                   ),
-                ),
-                child: Container(
-                  child: Text('View all',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 17,
-                        color: myColors[profile.user.colorScheme],
-                      )),
-                ),
-              ),
-            ],
-          )),
-      blockReview(profile.review[0], context),
-      blockReview(profile.review[1], context)
-    ]));
+                  GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ReviewListScreen(profile: profile),
+                      ),
+                    ),
+                    child: Container(
+                      child: Text('View all',
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17,
+                            color: myColors[profile.user.colorScheme],
+                          )),
+                    ),
+                  ),
+                ],
+              )),
+          blockReview(profile.review[0], context),
+          blockReview(profile.review[1], context)
+        ],
+      ),
+    );
   }
 }

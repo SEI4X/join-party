@@ -8,7 +8,7 @@ class ChatsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 50),
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(gradient: myGradients[6]),
       child: ClipRRect(
         child: ListView.builder(
           itemCount: chats.length,
@@ -27,13 +27,13 @@ class ChatsPage extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10),
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 decoration: BoxDecoration(
-                  gradient: myGradients[chat.sender.colorScheme],
+                  color: Color(0xffffffff),
                   boxShadow: [
                     BoxShadow(
-                      color: myShadows[chat.sender.colorScheme],
-                      spreadRadius: 2,
+                      color: myShadows[6],
+                      spreadRadius: 1,
                       blurRadius: 4,
-                      offset: Offset(0, 2), // changes position of shadow
+                      offset: Offset(0, 3), // changes position of shadow
                     ),
                   ],
                   borderRadius: BorderRadius.all(Radius.circular(15.0)),
@@ -68,7 +68,7 @@ class ChatsPage extends StatelessWidget {
                             Text(
                               chat.sender.name,
                               style: TextStyle(
-                                color: Colors.white,
+                                color: myColors[chat.sender.colorScheme],
                                 fontSize: 15.0,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -79,7 +79,7 @@ class ChatsPage extends StatelessWidget {
                               child: Text(
                                 chat.text,
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.grey[600],
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -95,7 +95,7 @@ class ChatsPage extends StatelessWidget {
                         Text(
                           chat.time,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.grey,
                             fontSize: 15.0,
                             fontWeight: FontWeight.bold,
                           ),
@@ -106,14 +106,14 @@ class ChatsPage extends StatelessWidget {
                                 width: 40.0,
                                 height: 20.0,
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: myColors[chat.sender.colorScheme],
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 alignment: Alignment.center,
                                 child: Text(
                                   'NEW',
                                   style: TextStyle(
-                                    color: myShadows[chat.sender.colorScheme],
+                                    color: Color(0xffffffff),
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.bold,
                                   ),
