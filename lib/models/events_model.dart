@@ -38,8 +38,7 @@ class Event {
       this.tag});
 
   void postEvents() async {
-    final response =
-        await post("https://joinparty.ru/apis/post_events.php", body: {
+    final _ = await post("https://joinparty.ru/apis/post_events.php", body: {
       "creator_id": creator.id.toString(),
       "event_name": utf8.encode(name),
       "place": utf8.encode(place),
