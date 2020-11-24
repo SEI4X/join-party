@@ -97,7 +97,7 @@ class _EventsPageState extends State<EventsPage> {
                                         "Members",
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
-                                          color: Colors.grey[600],
+                                          color: Colors.grey[700],
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
                                         ),
@@ -132,8 +132,7 @@ class _EventsPageState extends State<EventsPage> {
                                     Text(
                                       event.creator.name,
                                       style: TextStyle(
-                                        color:
-                                            myColors[event.creator.colorScheme],
+                                        color: Colors.grey[700],
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -152,7 +151,7 @@ class _EventsPageState extends State<EventsPage> {
                                           Text(
                                             " ${event.place}",
                                             style: TextStyle(
-                                              color: Colors.grey[600],
+                                              color: Colors.grey[700],
                                               fontSize: 14.0,
                                               fontWeight: FontWeight.w600,
                                             ),
@@ -190,7 +189,7 @@ class _EventsPageState extends State<EventsPage> {
                                     event.date,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
-                                      color: Colors.grey[600],
+                                      color: Colors.grey[700],
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.normal,
                                     ),

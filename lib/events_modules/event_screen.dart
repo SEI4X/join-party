@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import '../models/events_model.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:join_party/models/colors.dart';
+import 'members_list_screen.dart';
 
 class EventScreen extends StatefulWidget {
   final Event event;
@@ -131,43 +132,53 @@ class _EventScreenState extends State<EventScreen> {
               ],
             ),
           ),
-          Container(
-            width: (MediaQuery.of(context).size.width / 3) - 14,
-            margin: EdgeInsets.only(top: 15, bottom: 10, right: 10),
-            height: 50,
-            child: Align(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    widget.event.members.length.toString(),
-                    style: TextStyle(
-                        color: myColors[widget.event.colorScheme],
-                        fontWeight: FontWeight.w700,
-                        fontSize: 17),
-                  ),
-                  Text(
-                    "Members",
-                    style: TextStyle(
-                        color: Colors.blueGrey[700],
-                        fontWeight: FontWeight.w500),
+          InkWell(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => MembersListScreen(
+                  event: widget.event,
+                ),
+              ),
+            ),
+            child: Container(
+              width: (MediaQuery.of(context).size.width / 3) - 14,
+              margin: EdgeInsets.only(top: 15, bottom: 10, right: 10),
+              height: 50,
+              child: Align(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      widget.event.members.length.toString(),
+                      style: TextStyle(
+                          color: myColors[widget.event.colorScheme],
+                          fontWeight: FontWeight.w700,
+                          fontSize: 17),
+                    ),
+                    Text(
+                      "Members",
+                      style: TextStyle(
+                          color: Colors.blueGrey[700],
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(14)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey[350],
+                    spreadRadius: 2,
+                    blurRadius: 4,
+                    offset: Offset(0, 2), // changes position of shadow
                   ),
                 ],
               ),
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(14)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey[350],
-                  spreadRadius: 2,
-                  blurRadius: 4,
-                  offset: Offset(0, 2), // changes position of shadow
-                ),
-              ],
             ),
           ),
           Container(
