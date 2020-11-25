@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
+import 'package:flutter/scheduler.dart';
+import 'package:join_party/auth_modules/login_screen.dart';
 import 'package:join_party/profile%20modules/profile_page.dart';
 import 'chats_modules/chats_page.dart';
 import 'map_modules/map_page.dart';
@@ -27,6 +29,20 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   ];
 
   int menuDuration = 125;
+
+  @override
+  void initState() {
+    super.initState();
+
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => LoginPage(),
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

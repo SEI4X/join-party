@@ -34,6 +34,7 @@ dependencies:
 
   firebase_core: ^0.5.1
   firebase_analytics: ^6.1.0
+  clip_shadow: any
 
   http: ^0.12.2
 
