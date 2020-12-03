@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
-import 'package:flutter/scheduler.dart';
-import 'package:join_party/auth_modules/login_screen.dart';
-import 'package:join_party/profile%20modules/profile_page.dart';
-import 'chats_modules/chats_page.dart';
-import 'map_modules/map_page.dart';
-import 'events_modules/events_page.dart';
-import 'events_modules/event_create_page.dart';
-import 'models/colors.dart';
-
-import 'package:join_party/map_modules/search_bar.dart';
+import 'profile modules/profile_view.dart';
+import 'chats_modules/chats_list_view.dart';
+import 'map_modules/map_view.dart';
+import 'events_modules/events_list_view.dart';
+import 'events_modules/event_create_view.dart';
+import '../models/colors.dart';
+import 'map_modules/search_view.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -29,20 +26,6 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   ];
 
   int menuDuration = 125;
-
-  @override
-  void initState() {
-    super.initState();
-
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => LoginPage(),
-        ),
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,20 +59,26 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   bottomIcons == BottomIcons.Map
-                      ? Icon(
-                          EvaIcons.funnelOutline,
-                          color: Colors.blueGrey,
-                          size: 25,
+                      ? SizedBox(
+                          width: 44,
+                          child: Icon(
+                            EvaIcons.funnelOutline,
+                            color: Colors.blueGrey,
+                            size: 25,
+                          ),
                         )
                       : bottomIcons == BottomIcons.Events
-                          ? Container(width: 30)
+                          ? Container(width: 44)
                           : bottomIcons == BottomIcons.Chats
-                              ? Icon(EvaIcons.plusCircleOutline,
-                                  color: Colors.blueGrey)
-                              : Container(width: 30),
+                              ? SizedBox(
+                                  width: 44,
+                                  child: Icon(EvaIcons.plusCircleOutline,
+                                      color: Colors.blueGrey),
+                                )
+                              : Container(width: 44),
                   Text(
                     bottomIcons == BottomIcons.Map
-                        ? "Map"
+                        ? "Join Party"
                         : bottomIcons == BottomIcons.Events
                             ? "My events"
                             : bottomIcons == BottomIcons.Chats
@@ -108,34 +97,46 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                     ),
                   ),
                   bottomIcons == BottomIcons.Map
-                      ? IconButton(
-                          iconSize: 25,
-                          icon: Icon(EvaIcons.searchOutline),
-                          color: Colors.blueGrey,
-                          onPressed: () {
-                            showSearch(
-                                context: context, delegate: SearchData());
-                          },
+                      ? SizedBox(
+                          width: 44,
+                          child: IconButton(
+                            iconSize: 25,
+                            icon: Icon(EvaIcons.searchOutline),
+                            color: Colors.blueGrey,
+                            onPressed: () {
+                              showSearch(
+                                  context: context, delegate: SearchData());
+                            },
+                          ),
                         )
                       : bottomIcons == BottomIcons.Events
-                          ? IconButton(
-                              iconSize: 25,
-                              icon: Icon(EvaIcons.plus),
-                              color: Colors.blueGrey,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => EventCreatePage()),
-                                );
-                                setState(() {});
-                              },
+                          ? SizedBox(
+                              width: 44,
+                              child: IconButton(
+                                iconSize: 25,
+                                icon: Icon(EvaIcons.plus),
+                                color: Colors.blueGrey,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => EventCreatePage()),
+                                  );
+                                  setState(() {});
+                                },
+                              ),
                             )
                           : bottomIcons == BottomIcons.Chats
-                              ? Icon(EvaIcons.searchOutline,
-                                  color: Colors.blueGrey)
-                              : Icon(EvaIcons.moreVerticalOutline,
-                                  color: Colors.blueGrey),
+                              ? SizedBox(
+                                  width: 44,
+                                  child: Icon(EvaIcons.searchOutline,
+                                      color: Colors.blueGrey),
+                                )
+                              : SizedBox(
+                                  width: 44,
+                                  child: Icon(EvaIcons.moreVerticalOutline,
+                                      color: Colors.blueGrey),
+                                ),
                 ],
               ),
             ),

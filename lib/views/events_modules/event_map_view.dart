@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:join_party/models/colors.dart';
-import '../models/events_model.dart';
+import '../../models/events_model.dart';
 
 class EventScreenDemo extends StatefulWidget {
   final Event event;

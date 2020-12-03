@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:join_party/models/profile_model.dart';
-import 'package:join_party/profile%20modules/friend_list_screen.dart';
-import 'package:join_party/profile%20modules/review_list_screen.dart';
+import 'friend_list_view.dart';
+import 'review_list_view.dart';
 import 'package:join_party/models/colors.dart';
 
 String review = 'Reviews (' + profile.review.length.toString() + ')';

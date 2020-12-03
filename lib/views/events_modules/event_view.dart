@@ -2,10 +2,10 @@ import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../models/events_model.dart';
+import '../../models/events_model.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:join_party/models/colors.dart';
-import 'members_list_screen.dart';
+import 'members_list_view.dart';
 
 class EventScreen extends StatefulWidget {
   final Event event;

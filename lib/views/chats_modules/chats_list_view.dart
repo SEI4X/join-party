@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:join_party/models/colors.dart';
-import '../models/message_model.dart';
-import 'chat_screen.dart';
+import '../../models/message_model.dart';
+import 'chat_view.dart';
 
 class ChatsPage extends StatelessWidget {
   @override

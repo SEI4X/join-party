@@ -1,11 +1,11 @@
 import 'package:clip_shadow/clip_shadow.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:join_party/auth_modules/register_screen.dart';
+import 'register_view.dart';
+import 'package:join_party/views/main_view.dart';
 import 'package:join_party/models/colors.dart';
 
 class LoginPage extends StatelessWidget {
-  @override
   Widget _socialNetworks(BuildContext context) {
     return Container(
       margin:
@@ -25,8 +25,8 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                width: 44,
-                height: 44,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
@@ -36,8 +36,8 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Container(
-                width: 44,
-                height: 44,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
@@ -47,8 +47,8 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Container(
-                width: 44,
-                height: 44,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
@@ -58,8 +58,8 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Container(
-                width: 44,
-                height: 44,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
@@ -75,6 +75,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
@@ -274,7 +275,13 @@ class LoginPage extends StatelessWidget {
                         Align(
                           alignment: Alignment.centerRight,
                           child: InkWell(
-                            onTap: () => Navigator.pop(context),
+                            onTap: () => Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => MainPage(),
+                              ),
+                              (Route<dynamic> route) => false,
+                            ),
                             child: Container(
                               child: Icon(
                                 EvaIcons.arrowForward,

@@ -43,7 +43,7 @@ final User james = User(
     name: 'James',
     secondName: 'Philips',
     imageUrl: 'assets/images/james.jpg',
-    colorScheme: 3,
+    colorScheme: 1,
     login: 'jojames',
     city: 'Moscow',
     country: 'Russia');
