@@ -5,17 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:join_party/models/colors.dart';
 import 'package:join_party/models/profile_model.dart';
 import '../models/user_model.dart';
+import 'chat_screen.dart';
 
-class FriendListScreen extends StatefulWidget {
+class AddChatScreen extends StatefulWidget {
   final Profile profile;
 
-  FriendListScreen({this.profile});
+  AddChatScreen({this.profile});
 
   @override
-  _FreindListScreen createState() => _FreindListScreen();
+  _AddChatScreen createState() => _AddChatScreen();
 }
 
-class _FreindListScreen extends State<FriendListScreen> {
+class _AddChatScreen extends State<AddChatScreen> {
   friendBlock(User friend) {
     return Container(
         width: double.infinity,
@@ -96,7 +97,7 @@ class _FreindListScreen extends State<FriendListScreen> {
           backgroundColor: Colors.transparent,
           title: Center(
             child: Text(
-              "Friends",
+              "Add Chat",
               style: TextStyle(
                 fontSize: 28.0,
                 fontWeight: FontWeight.bold,
@@ -105,12 +106,9 @@ class _FreindListScreen extends State<FriendListScreen> {
           ),
           elevation: 0.0,
           actions: <Widget>[
-            IconButton(
-              icon: Icon(EvaIcons.searchOutline),
-              iconSize: 30.0,
-              color: Colors.white,
-              onPressed: () {},
-            ),
+            Container(
+              width: 50,
+            )
           ],
         ),
         body: Container(

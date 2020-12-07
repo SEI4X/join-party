@@ -238,7 +238,7 @@ class ProfilePage extends StatelessWidget {
 
   Widget blockReview(Review review, BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
+      margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
         color: Color(0xffffffff),
@@ -246,9 +246,9 @@ class ProfilePage extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: myShadows[6],
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: Offset(0, 3), // changes position of shadow
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 2), // changes position of shadow
           ),
         ],
       ),
@@ -259,13 +259,13 @@ class ProfilePage extends StatelessWidget {
             children: <Widget>[
               Stack(
                 alignment: Alignment.center,
-                children: [
+                children: <Widget>[
                   Container(
-                    width: 76,
-                    height: 76,
+                    width: 77,
+                    height: 77,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(38)),
-                      color: Color(0xffffffff),
+                      color: myColors[review.user.colorScheme],
                     ),
                   ),
                   CircleAvatar(
@@ -308,7 +308,7 @@ class ProfilePage extends StatelessWidget {
             child: Text(
               review.date,
               style: TextStyle(
-                color: myColors[review.user.colorScheme],
+                color: Colors.grey[600],
                 fontSize: 15.0,
                 fontWeight: FontWeight.bold,
               ),

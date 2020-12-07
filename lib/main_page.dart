@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
 import 'package:join_party/profile%20modules/profile_page.dart';
+import 'chats_modules/add_chat_screen.dart';
 import 'chats_modules/chats_page.dart';
 import 'map_modules/map_page.dart';
 import 'events_modules/events_page.dart';
@@ -68,8 +69,19 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                       : bottomIcons == BottomIcons.Events
                           ? Container(width: 30)
                           : bottomIcons == BottomIcons.Chats
-                              ? Icon(EvaIcons.plusCircleOutline,
-                                  color: Colors.blueGrey)
+                              ? IconButton(
+                                  iconSize: 25,
+                                  icon: Icon(EvaIcons.plus),
+                                  color: Colors.blueGrey,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => AddChatScreen()),
+                                    );
+                                    setState(() {});
+                                  },
+                                )
                               : Container(width: 30),
                   Text(
                     bottomIcons == BottomIcons.Map

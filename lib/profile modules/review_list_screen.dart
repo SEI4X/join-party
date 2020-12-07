@@ -14,19 +14,19 @@ class ReviewListScreen extends StatefulWidget {
 }
 
 class _ReviewListScreen extends State<ReviewListScreen> {
-  reviewBlock(Review review, BuildContext context) {
+  Widget blockReview(Review review, BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
+      margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        gradient: myGradients[review.user.colorScheme],
+        color: Color(0xffffffff),
         borderRadius: BorderRadius.all(Radius.circular(20)),
         boxShadow: [
           BoxShadow(
-            color: myShadows[review.user.colorScheme],
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: Offset(0, 2),
+            color: myShadows[6],
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 2), // changes position of shadow
           ),
         ],
       ),
@@ -37,13 +37,13 @@ class _ReviewListScreen extends State<ReviewListScreen> {
             children: <Widget>[
               Stack(
                 alignment: Alignment.center,
-                children: [
+                children: <Widget>[
                   Container(
-                    width: 76,
-                    height: 76,
+                    width: 77,
+                    height: 77,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(38)),
-                      color: Color(0xffffffff),
+                      color: myColors[review.user.colorScheme],
                     ),
                   ),
                   CircleAvatar(
@@ -59,7 +59,7 @@ class _ReviewListScreen extends State<ReviewListScreen> {
                   Text(
                     review.user.name,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: myColors[review.user.colorScheme],
                       fontSize: 15.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -70,7 +70,7 @@ class _ReviewListScreen extends State<ReviewListScreen> {
                     child: Text(
                       review.text,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.grey[600],
                         fontSize: 15.0,
                         fontWeight: FontWeight.w600,
                       ),
@@ -86,7 +86,7 @@ class _ReviewListScreen extends State<ReviewListScreen> {
             child: Text(
               review.date,
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.grey[600],
                 fontSize: 15.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -131,7 +131,7 @@ class _ReviewListScreen extends State<ReviewListScreen> {
                     itemCount: profile.review.length,
                     itemBuilder: (BuildContext context, int index) {
                       final Review review = profile.review[index];
-                      return reviewBlock(review, context);
+                      return blockReview(review, context);
                     }))));
   }
 }
