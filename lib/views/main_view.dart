@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:join_party/models/sql/repository_service.dart';
 import 'profile modules/profile_view.dart';
 import 'chats_modules/chats_list_view.dart';
 import 'map_modules/map_view.dart';
@@ -13,29 +15,52 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-enum States { map, events, chats, profile }
+final MapPage mapPage = MapPage();
+final EventsPage eventsPage = EventsPage();
+final ChatsPage chatsPage = ChatsPage();
+final ProfilePage profilePage = ProfilePage();
 
 BottomIcons bottomIcons = BottomIcons.Map;
+enum States { map, events, chats, profile }
 
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
-  static final tabs = [
-    Center(child: MapPage()),
-    Center(child: EventsPage()),
-    Center(child: ChatsPage()),
-    Center(child: ProfilePage()),
-  ];
-
   int menuDuration = 125;
+  int currentIndex = 0;
+
+  _setLoginState() async {
+    final storage = new FlutterSecureStorage();
+    await storage.write(key: "isLogged", value: "0");
+  }
+
+  void addProfile() {}
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> tabs = [
+      Center(child: mapPage),
+      Center(child: eventsPage),
+      Center(child: chatsPage),
+      Center(child: profilePage),
+    ];
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          tabs[0],
-          bottomIcons == BottomIcons.Events ? tabs[1] : Container(),
-          bottomIcons == BottomIcons.Chats ? tabs[2] : Container(),
-          bottomIcons == BottomIcons.Profile ? tabs[3] : Container(),
+          Offstage(
+            child: tabs[0],
+            offstage: currentIndex != 0,
+          ),
+          Offstage(
+            child: tabs[1],
+            offstage: currentIndex != 1,
+          ),
+          Offstage(
+            child: tabs[2],
+            offstage: currentIndex != 2,
+          ),
+          Offstage(
+            child: tabs[3],
+            offstage: currentIndex != 3,
+          ),
           Align(
             alignment: Alignment.topCenter,
             child: Container(
@@ -134,8 +159,16 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                 )
                               : SizedBox(
                                   width: 44,
-                                  child: Icon(EvaIcons.moreVerticalOutline,
-                                      color: Colors.blueGrey),
+                                  child: IconButton(
+                                    iconSize: 25,
+                                    icon: Icon(EvaIcons.moreVerticalOutline),
+                                    color: Colors.blueGrey,
+                                    onPressed: () {
+                                      RepositoryServiceProfile.deleteProfile();
+                                      _setLoginState();
+                                      setState(() {});
+                                    },
+                                  ),
                                 ),
                 ],
               ),
@@ -168,6 +201,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                   // Карта
                   GestureDetector(
                       onTap: () {
+                        currentIndex = 0;
                         setState(() {
                           bottomIcons = BottomIcons.Map;
                         });
@@ -206,6 +240,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                   // События
                   GestureDetector(
                       onTap: () {
+                        currentIndex = 1;
                         setState(() {
                           bottomIcons = BottomIcons.Events;
                         });
@@ -246,6 +281,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                   // Чаты
                   GestureDetector(
                       onTap: () {
+                        currentIndex = 2;
                         setState(() {
                           bottomIcons = BottomIcons.Chats;
                         });
@@ -286,6 +322,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                   // Профиль
                   GestureDetector(
                       onTap: () {
+                        currentIndex = 3;
                         setState(() {
                           bottomIcons = BottomIcons.Profile;
                         });

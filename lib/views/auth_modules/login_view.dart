@@ -1,11 +1,98 @@
+import 'package:join_party/models/profile_model.dart';
+import 'package:join_party/models/user_model.dart';
+
+import 'register_view.dart';
+import 'dart:convert' as convert;
+
 import 'package:clip_shadow/clip_shadow.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'register_view.dart';
-import 'package:join_party/views/main_view.dart';
-import 'package:join_party/models/colors.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class LoginPage extends StatelessWidget {
+import 'package:join_party/models/colors.dart';
+import 'package:join_party/views/main_view.dart';
+
+import 'package:join_party/models/sql/database_creator.dart';
+import 'package:join_party/models/sql/repository_service.dart';
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final loginController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  _setLoginState() async {
+    final storage = new FlutterSecureStorage();
+    print(await storage.read(key: "isLogged"));
+    await storage.write(key: "isLogged", value: "1");
+  }
+
+  _login() async {
+    Map<String, String> value;
+    setState(() {
+      value = {
+        "login": loginController.text,
+        "password": passwordController.text
+      };
+    });
+    Uri uri = Uri.parse("http://joinparty.ru/users/log");
+    final url = uri.replace(queryParameters: value);
+    http.Response response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      User profile = new User(
+          id: jsonResponse["id"],
+          name: jsonResponse["first_name"],
+          secondName: jsonResponse["second_name"],
+          imageUrl: jsonResponse["image_url"],
+          colorScheme: jsonResponse["color_scheme"],
+          country: jsonResponse["country"],
+          city: jsonResponse["city"],
+          instId: jsonResponse["instagram"],
+          vkId: jsonResponse["vk"],
+          tikTokId: jsonResponse["tiktok"],
+          twitterId: jsonResponse["image_url"],
+          about: jsonResponse["about"]);
+
+      RepositoryServiceProfile.addProfile(profile);
+      await _setLoginState();
+      await Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (_) => MainPage(),
+        ),
+        (Route<dynamic> route) => false,
+      );
+    } else {
+      _showAlert(context);
+    }
+  }
+
+  void _showAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15.0))),
+        title: Text("Oops..."),
+        content: Text("Login or password is incorrect"),
+        actions: [
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _socialNetworks(BuildContext context) {
     return Container(
       margin:
@@ -188,6 +275,7 @@ class LoginPage extends StatelessWidget {
                                             TextInputType.emailAddress,
                                         enableSuggestions: false,
                                         autocorrect: false,
+                                        controller: loginController,
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: 'Email or phone',
@@ -235,6 +323,7 @@ class LoginPage extends StatelessWidget {
                                         enableSuggestions: false,
                                         autocorrect: false,
                                         obscureText: true,
+                                        controller: passwordController,
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: 'Password',
@@ -275,13 +364,9 @@ class LoginPage extends StatelessWidget {
                         Align(
                           alignment: Alignment.centerRight,
                           child: InkWell(
-                            onTap: () => Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => MainPage(),
-                              ),
-                              (Route<dynamic> route) => false,
-                            ),
+                            onTap: () async {
+                              await _login();
+                            },
                             child: Container(
                               child: Icon(
                                 EvaIcons.arrowForward,
