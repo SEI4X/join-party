@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:join_party/models/sql/repository_service.dart';
-import 'profile modules/profile_view.dart';
+import 'profile_modules/profile_view.dart';
 import 'chats_modules/chats_list_view.dart';
 import 'map_modules/map_view.dart';
 import 'events_modules/events_list_view.dart';

@@ -29,7 +29,7 @@ class RepositoryServiceProfile {
     )
     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''';
     List<dynamic> params = [
-      1,
+      profile.id,
       profile.name,
       profile.secondName,
       profile.login,
@@ -63,7 +63,7 @@ class RepositoryServiceProfile {
         ${DatabaseCreator.twitter},
         ${DatabaseCreator.about}
     WHERE
-        ${DatabaseCreator.id} = 1
+        ${DatabaseCreator.id} = ${DatabaseCreator.id}
     ''';
 
     List<dynamic> params = [
@@ -87,7 +87,7 @@ class RepositoryServiceProfile {
   static Future<void> deleteProfile() async {
     final sql = '''DELETE FROM ${DatabaseCreator.table}
         WHERE
-        ${DatabaseCreator.id} = 1''';
+         ${DatabaseCreator.id} = ${DatabaseCreator.id}''';
     final result = await db.rawUpdate(sql);
 
     DatabaseCreator.databaseLog('Delete profile', sql, null, result);

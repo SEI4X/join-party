@@ -111,7 +111,7 @@ class ProfilePage extends StatelessWidget {
                         Container(
                           width: MediaQuery.of(context).size.width - 150,
                           child: Text(
-                            userName,
+                            "${profile.user.name} ${profile.user.secondName}",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
@@ -123,7 +123,7 @@ class ProfilePage extends StatelessWidget {
                           height: 25,
                           width: MediaQuery.of(context).size.width - 150,
                           child: Text(
-                            "${profile.user.city} ${profile.user.country}",
+                            "${profile.user.city}, ${profile.user.country}",
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w400,
@@ -335,6 +335,7 @@ class ProfilePage extends StatelessWidget {
         future: getUser(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            print(snapshot.data.user.id);
             return Container(
               decoration: BoxDecoration(gradient: myGradients[6]),
               child: Column(

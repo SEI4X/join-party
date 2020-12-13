@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:join_party/models/colors.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:join_party/models/events_model.dart';
-import 'package:join_party/models/profile_model.dart';
+import 'package:join_party/models/sql/repository_service.dart';
+import 'package:join_party/models/user_model.dart';
 import 'package:platform_maps_flutter/platform_maps_flutter.dart';
 
 class EventCreatePage extends StatefulWidget {
@@ -16,16 +17,27 @@ class _EventCreatePageState extends State<EventCreatePage> {
   TextEditingController _controller;
   DateTime _date;
   DateTime _time;
+  User _user;
   String dropdownValue = 'Sports';
   final eventNameController = TextEditingController();
   final eventAdressController = TextEditingController();
   final eventDescriptionController = TextEditingController();
-
   void initState() {
     super.initState();
     _controller = TextEditingController();
     _date = DateTime.now();
     _time = DateTime.now();
+    getUser().then((user) {
+      _user = user;
+    });
+  }
+
+  Future<User> getUser() async {
+    User user;
+    await RepositoryServiceProfile.getProfile().then((value) {
+      user = value;
+    });
+    return user;
   }
 
   void dispose() {
@@ -101,8 +113,8 @@ class _EventCreatePageState extends State<EventCreatePage> {
         time: "${_time.hour}:${_time.minute}:00",
         tag: "",
         imageUrl: "-1",
-        creator: profile.user,
-        colorScheme: profile.user.colorScheme,
+        creator: _user,
+        colorScheme: _user.colorScheme,
         position: LatLng(113, 324),
         isActive: true,
         isPrivate: false);
