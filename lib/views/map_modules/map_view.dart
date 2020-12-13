@@ -3,11 +3,11 @@ import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:join_party/events_modules/event_screen_demo.dart';
+import '../events_modules/event_map_view.dart';
 import 'package:join_party/models/colors.dart';
 import 'package:platform_maps_flutter/platform_maps_flutter.dart';
 import 'package:join_party/models/events_model.dart';
-import 'package:join_party/events_modules/event_create_page.dart';
+import '../events_modules/event_create_view.dart';
 
 class MapPage extends StatefulWidget {
   @override

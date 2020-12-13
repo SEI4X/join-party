@@ -37,9 +37,9 @@ class Event {
       this.isPrivate,
       this.tag});
 
-  void postEvents() async {
-    final _ = await post("https://joinparty.ru/apis/post_events.php", body: {
-      "creator_id": creator.id.toString(),
+  Future<bool> postEvents() async {
+    final con = await post("https://joinparty.ru/apis/post_events.php", body: {
+      "creator_id": utf8.encode(creator.id.toString()),
       "event_name": utf8.encode(name),
       "place": utf8.encode(place),
       "event_datetime":
@@ -53,6 +53,11 @@ class Event {
       "is_active": isActive ? 1.toString() : 0.toString(),
       "is_private": isPrivate ? 1.toString() : 0.toString(),
     });
+    print("${con.statusCode}");
+    if (con.statusCode == 200)
+      return true;
+    else
+      return false;
   }
 
   void getEvent() async {}

@@ -4,7 +4,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:join_party/models/colors.dart';
 import 'package:join_party/models/profile_model.dart';
-import '../models/user_model.dart';
+import '../../models/user_model.dart';
 
 class FriendListScreen extends StatefulWidget {
   final Profile profile;

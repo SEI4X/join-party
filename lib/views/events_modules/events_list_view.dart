@@ -1,8 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:join_party/models/colors.dart';
-import '../models/events_model.dart';
-import 'event_screen.dart';
+import '../../models/events_model.dart';
+import 'event_view.dart';
 
 class EventsPage extends StatefulWidget {
   @override
