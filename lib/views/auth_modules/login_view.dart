@@ -1,3 +1,4 @@
+import 'package:join_party/models/message_model.dart';
 import 'package:join_party/models/profile_model.dart';
 import 'package:join_party/models/user_model.dart';
 
@@ -57,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
           tikTokId: jsonResponse["tiktok"],
           twitterId: jsonResponse["image_url"],
           about: jsonResponse["about"]);
-
+      currentUser.id = profile.id;
       RepositoryServiceProfile.addProfile(profile);
       await _setLoginState();
       await Navigator.pushAndRemoveUntil(

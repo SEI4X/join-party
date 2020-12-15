@@ -45,4 +45,9 @@ class User {
     this.vkId = json[DatabaseCreator.vk];
     this.about = json[DatabaseCreator.about];
   }
+
+  @override
+  String toString() {
+    return '{ ${this.id}, ${this.name}, ${this.secondName}, ${this.imageUrl} , ${this.colorScheme}, ${this.login}, ${this.country}, ${this.city}, ${this.instId}, ${this.tikTokId} , ${this.twitterId}, ${this.vkId}, ${this.about} }';
+  }
 }

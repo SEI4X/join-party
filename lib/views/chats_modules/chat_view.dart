@@ -1,20 +1,46 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:join_party/models/colors.dart';
+import 'package:join_party/models/sql/repository_messages.dart';
 import '../../models/message_model.dart';
 import '../../models/user_model.dart';
+import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
-  final User user;
+  final Chat chat;
 
-  ChatScreen({this.user});
+  ChatScreen({this.chat});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  TextEditingController messageTextController = TextEditingController();
+
+  final StreamController _messageController = StreamController();
+  Stream get messageController => _messageController.stream;
+
+  Stream<List<Message>> get messageListView async* {
+    yield await getMessageByChatId(widget.chat.id);
+  }
+
+  sendMessage() {
+    if (messageTextController.text.isNotEmpty) {
+      MessagesTable message = MessagesTable(
+          1,
+          widget.chat.sender.id,
+          currentUser.id,
+          messageTextController.text,
+          DateTime.now(),
+          widget.chat.id);
+      messageTextController.text = "";
+      postMessage(message);
+    }
+  }
+
   _buildMessage(Message message, bool isMe) {
     final Container msg = Container(
       margin: isMe
@@ -46,7 +72,7 @@ class _ChatScreenState extends State<ChatScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            message.time,
+            DateFormat.jm().format(message.date),
             style: TextStyle(
               color: Colors.blueGrey,
               fontSize: 16.0,
@@ -75,15 +101,10 @@ class _ChatScreenState extends State<ChatScreen> {
       color: Colors.white,
       child: Row(
         children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.photo),
-            iconSize: 25.0,
-            color: myColors[widget.user.colorScheme],
-            onPressed: () {},
-          ),
           Expanded(
             child: TextField(
               textCapitalization: TextCapitalization.sentences,
+              controller: messageTextController,
               onChanged: (value) {},
               decoration: InputDecoration.collapsed(
                 hintText: 'Send a message...',
@@ -93,8 +114,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: Icon(Icons.send),
             iconSize: 25.0,
-            color: myColors[widget.user.colorScheme],
-            onPressed: () {},
+            color: myColors[widget.chat.sender.colorScheme],
+            onPressed: sendMessage(),
           ),
         ],
       ),
@@ -104,11 +125,11 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myColors[widget.user.colorScheme],
+      backgroundColor: myColors[widget.chat.sender.colorScheme],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(
-          widget.user.name,
+          widget.chat.sender.name,
           style: TextStyle(
             fontSize: 28.0,
             fontWeight: FontWeight.bold,
@@ -142,16 +163,19 @@ class _ChatScreenState extends State<ChatScreen> {
                     topLeft: Radius.circular(30.0),
                     topRight: Radius.circular(30.0),
                   ),
-                  child: ListView.builder(
-                    reverse: true,
-                    padding: EdgeInsets.only(top: 15.0),
-                    itemCount: messages.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final Message message = messages[index];
-                      final bool isMe = message.sender.id == currentUser.id;
-                      return _buildMessage(message, isMe);
-                    },
-                  ),
+                  child: StreamBuilder(
+                      stream: messageListView,
+                      builder: (context, snapshot) {
+                        return ListView.builder(
+                            padding: EdgeInsets.only(top: 15.0),
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final Message message = snapshot.data[index];
+                              final bool isMe =
+                                  message.senderId != widget.chat.sender.id;
+                              return _buildMessage(message, isMe);
+                            });
+                      }),
                 ),
               ),
             ),
