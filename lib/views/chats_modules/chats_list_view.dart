@@ -74,7 +74,7 @@ class ChatsPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      chat.sender.name,
+                                      "${chat.sender.name} ${chat.sender.secondName}",
                                       style: TextStyle(
                                         color:
                                             myColors[chat.sender.colorScheme],
@@ -87,7 +87,7 @@ class ChatsPage extends StatelessWidget {
                                       width: MediaQuery.of(context).size.width *
                                           0.45,
                                       child: Text(
-                                        chat.messages.last.text,
+                                        "${chat.sender.city}, ${chat.sender.country}",
                                         style: TextStyle(
                                           color: Colors.grey[600],
                                           fontSize: 15.0,
@@ -98,19 +98,6 @@ class ChatsPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            Column(
-                              children: <Widget>[
-                                Text(
-                                  DateFormat.jm()
-                                      .format(chat.messages.last.date),
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
                               ],
                             ),
                           ],

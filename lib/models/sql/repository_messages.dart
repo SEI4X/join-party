@@ -92,6 +92,30 @@ Future<List<Message>> getMessageByChatId(int chatId) async {
   return messages;
 }
 
+// Future<List<Chat>> getUserChats(userId) async {
+//   List<ChatsTable> chatsTable;
+//   await getChatsByUserId(userId).then((value) {
+//     chatsTable = value;
+//   });
+
+//   List<Chat> chats = List<Chat>();
+
+//   for (var chat in chatsTable) {
+//     List<Message> chatMessages;
+//     await getMessageByChatId(chat.id).then((value) {
+//       chatMessages = value;
+//     });
+//     User user;
+//     await getUserById(
+//             chat.firstUser == userId ? chat.secondUser : chat.firstUser)
+//         .then((value) {
+//       user = value;
+//     });
+//     chats.add(Chat(id: chat.id, messages: chatMessages, sender: user));
+//   }
+//   return chats;
+// }
+
 Future<List<Chat>> getUserChats(userId) async {
   List<ChatsTable> chatsTable;
   await getChatsByUserId(userId).then((value) {
@@ -113,6 +137,14 @@ Future<List<Chat>> getUserChats(userId) async {
     });
     chats.add(Chat(id: chat.id, messages: chatMessages, sender: user));
   }
+  return chats;
+}
+
+Future<List<Chat>> getUserChatsForStream(userId) async {
+  List<Chat> chats;
+  await getUserChats(userId).then((value) {
+    chats = value;
+  });
   return chats;
 }
 

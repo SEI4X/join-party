@@ -69,23 +69,39 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            DateFormat.jm().format(message.date),
-            style: TextStyle(
-              color: Colors.blueGrey,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
+          Align(
+            alignment: isMe ? Alignment.topLeft : Alignment.topRight,
+            child: Text(
+              DateFormat('dd MMM yy').format(message.date),
+              style: TextStyle(
+                color: Colors.blueGrey,
+                fontSize: 12.0,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
-          SizedBox(height: 8.0),
-          Text(
-            message.text,
-            style: TextStyle(
-              color: Colors.blueGrey,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
+          SizedBox(height: 2.0),
+          Align(
+            alignment: isMe ? Alignment.topRight : Alignment.topLeft,
+            child: Text(
+              message.text,
+              style: TextStyle(
+                color: Colors.blueGrey,
+                fontSize: 16.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          Align(
+            alignment: isMe ? Alignment.topLeft : Alignment.topRight,
+            child: Text(
+              DateFormat.jm().format(message.date),
+              style: TextStyle(
+                color: Colors.blueGrey,
+                fontSize: 12.0,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],
@@ -168,9 +184,13 @@ class _ChatScreenState extends State<ChatScreen> {
                       builder: (context, snapshot) {
                         return ListView.builder(
                             padding: EdgeInsets.only(top: 15.0),
-                            itemCount: snapshot.data.length,
+                            reverse: true,
+                            itemCount: snapshot.data == null
+                                ? 0
+                                : snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
-                              final Message message = snapshot.data[index];
+                              final Message message = snapshot
+                                  .data[snapshot.data.length - index - 1];
                               final bool isMe =
                                   message.senderId != widget.chat.sender.id;
                               return _buildMessage(message, isMe);
