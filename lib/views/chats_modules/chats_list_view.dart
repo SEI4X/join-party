@@ -63,10 +63,9 @@ class ChatsPage extends StatelessWidget {
                                       ),
                                     ),
                                     CircleAvatar(
-                                      radius: 35.0,
-                                      backgroundImage:
-                                          AssetImage(chat.sender.imageUrl),
-                                    )
+                                        radius: 35.0,
+                                        backgroundImage:
+                                            NetworkImage(chat.sender.imageUrl))
                                   ],
                                 ),
                                 SizedBox(width: 10.0),

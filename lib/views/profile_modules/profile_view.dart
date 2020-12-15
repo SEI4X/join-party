@@ -100,7 +100,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       CircleAvatar(
                         radius: 35.0,
-                        backgroundImage: AssetImage(profile.user.imageUrl),
+                        backgroundImage: NetworkImage(profile.user.imageUrl),
                       )
                     ],
                   ),
@@ -142,8 +142,7 @@ class ProfilePage extends StatelessWidget {
                                   height: 30,
                                   width: 30,
                                   child: Image(
-                                    image:
-                                        AssetImage("assets/images/vk-logo.png"),
+                                    image: NetworkImage(profile.user.imageUrl),
                                     color: myColors[profile.user.colorScheme],
                                   ),
                                   decoration: BoxDecoration(
@@ -280,7 +279,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 35.0,
-                    backgroundImage: AssetImage(review.user.imageUrl),
+                    backgroundImage: NetworkImage(review.user.imageUrl),
                   )
                 ],
               ),
