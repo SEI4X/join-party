@@ -145,7 +145,7 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(
-          widget.chat.sender.name,
+          "${widget.chat.sender.name} ${widget.chat.sender.secondName}",
           style: TextStyle(
             fontSize: 28.0,
             fontWeight: FontWeight.bold,
