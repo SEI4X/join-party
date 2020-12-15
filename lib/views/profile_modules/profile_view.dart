@@ -100,7 +100,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       CircleAvatar(
                         radius: 35.0,
-                        backgroundImage: AssetImage(profile.user.imageUrl),
+                        backgroundImage: NetworkImage(profile.user.imageUrl),
                       )
                     ],
                   ),
@@ -280,7 +280,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 35.0,
-                    backgroundImage: AssetImage(review.user.imageUrl),
+                    backgroundImage: NetworkImage(review.user.imageUrl),
                   )
                 ],
               ),
