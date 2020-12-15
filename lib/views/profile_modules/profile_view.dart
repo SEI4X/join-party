@@ -142,7 +142,8 @@ class ProfilePage extends StatelessWidget {
                                   height: 30,
                                   width: 30,
                                   child: Image(
-                                    image: NetworkImage(profile.user.imageUrl),
+                                    image:
+                                        AssetImage("assets/images/vk-logo.png"),
                                     color: myColors[profile.user.colorScheme],
                                   ),
                                   decoration: BoxDecoration(
