@@ -8,12 +8,12 @@ PODS:
     - FirebaseAnalytics (= 6.8.3)
   - Firebase/CoreOnly (6.33.0):
     - FirebaseCore (= 6.10.3)
-  - firebase_analytics (6.2.0):
+  - firebase_analytics (6.3.0):
     - Firebase/Analytics (~> 6.33.0)
     - Firebase/CoreOnly (~> 6.33.0)
     - firebase_core
     - Flutter
-  - firebase_core (0.5.2):
+  - firebase_core (0.5.3):
     - Firebase/CoreOnly (~> 6.33.0)
     - Flutter
   - FirebaseAnalytics (6.8.3):
@@ -161,10 +161,10 @@ CHECKOUT OPTIONS:
     :tag: 6.33.0
 
 SPEC CHECKSUMS:
-  apple_maps_flutter: 45925bdf704b86f713fcf6979ee1999d17b2a6e0
+  apple_maps_flutter: c59725efea39e13e703cde52a1d2b14866ad68a8
   Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
-  firebase_analytics: 52ba26fcfb9cc90f76b36c4e5200cc0a7e9024eb
-  firebase_core: 350ba329d1641211bc6183a3236893cafdacfea7
+  firebase_analytics: 36a619088c46224900829f14f4daa71585693a6f
+  firebase_core: 5d6a02f3d85acd5f8321c2d6d62877626a670659
   FirebaseAnalytics: 5dd088bd2e67bb9d13dbf792d1164ceaf3052193
   FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
