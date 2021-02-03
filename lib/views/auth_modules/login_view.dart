@@ -1,5 +1,4 @@
 import 'package:join_party/models/message_model.dart';
-import 'package:join_party/models/profile_model.dart';
 import 'package:join_party/models/user_model.dart';
 
 import 'register_view.dart';
@@ -14,7 +13,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:join_party/models/colors.dart';
 import 'package:join_party/views/main_view.dart';
 
-import 'package:join_party/models/sql/database_creator.dart';
 import 'package:join_party/models/sql/repository_service.dart';
 
 class LoginPage extends StatefulWidget {
@@ -64,7 +62,9 @@ class _LoginPageState extends State<LoginPage> {
       await Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (_) => MainPage(),
+          builder: (_) => MainPage(
+            profile: profile,
+          ),
         ),
         (Route<dynamic> route) => false,
       );

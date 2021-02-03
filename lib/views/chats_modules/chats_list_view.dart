@@ -3,7 +3,6 @@ import 'package:join_party/models/colors.dart';
 import 'package:join_party/models/sql/repository_messages.dart';
 import '../../models/message_model.dart';
 import 'chat_view.dart';
-import 'package:intl/intl.dart';
 
 class ChatsPage extends StatelessWidget {
   @override

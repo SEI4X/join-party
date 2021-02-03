@@ -50,8 +50,10 @@ class Event {
       "lang": utf8.encode(position.longitude.toString()),
       "lat": utf8.encode(position.latitude.toString()),
       "tag": utf8.encode(tag),
-      "is_active": isActive ? 1.toString() : 0.toString(),
-      "is_private": isPrivate ? 1.toString() : 0.toString(),
+      "is_active":
+          isActive ? utf8.encode(1.toString()) : utf8.encode(0.toString()),
+      "is_private":
+          isPrivate ? utf8.encode(1.toString()) : utf8.encode(0.toString()),
     });
     print("${con.statusCode}");
     if (con.statusCode == 200)

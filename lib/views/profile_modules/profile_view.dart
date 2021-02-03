@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:join_party/models/profile_model.dart';
 import 'package:join_party/models/sql/repository_service.dart';
 import 'package:join_party/models/user_model.dart';
+import 'package:join_party/views/profile_modules/add_review_view.dart';
+import 'package:join_party/views/profile_modules/all_events_screen.dart';
 import 'friend_list_view.dart';
 import 'review_list_view.dart';
 import 'package:join_party/models/colors.dart';
+import 'awards_list_screen.dart';
 
 String review = 'Reviews (' + profile.review.length.toString() + ')';
 String userName = "${profile.user.name} ${profile.user.secondName}";
@@ -22,12 +25,13 @@ class ProfilePage extends StatelessWidget {
     return Profile(user: user, about: user.about);
   }
 
-  Widget blockInfo(String topText, String bottomText, BuildContext context) {
+  Widget blockInfo(
+      String topText, String bottomText, BuildContext context, Widget screen) {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => FriendListScreen(profile: profile),
+          builder: (_) => screen,
         ),
       ),
       child: Container(
@@ -329,6 +333,82 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
+  Widget addReviewButton(BuildContext context, User sender, User recipient) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (_) => NewReview(
+                    sender: sender,
+                    recipient: recipient,
+                  )),
+        );
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 48,
+        margin: EdgeInsets.only(top: 12, left: 12, right: 12),
+        decoration: BoxDecoration(
+          color: Color(0xffffffff),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          boxShadow: [
+            BoxShadow(
+              color: myShadows[6],
+              spreadRadius: 1,
+              blurRadius: 4,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            "Add new review",
+            style: TextStyle(
+              color: Colors.grey[600],
+              fontSize: 16.5,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget addToFriendButton(BuildContext context) {
+    return InkWell(
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 48,
+        margin: EdgeInsets.only(top: 12, left: 12, right: 12),
+        decoration: BoxDecoration(
+          color: Color(0xffffffff),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          boxShadow: [
+            BoxShadow(
+              color: myShadows[6],
+              spreadRadius: 1,
+              blurRadius: 4,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            "Follow",
+            style: TextStyle(
+              color: Colors.grey[600],
+              fontSize: 16.5,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Profile>(
@@ -348,16 +428,8 @@ class ProfilePage extends StatelessWidget {
                         10,
                         15),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.transparent,
                       borderRadius: BorderRadius.all(Radius.circular(15)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: myShadows[6],
-                          spreadRadius: 1,
-                          blurRadius: 4,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
                     ),
                     child: userInfo(context, snapshot.data),
                   ),
@@ -368,13 +440,28 @@ class ProfilePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           blockInfo(
-                              profile.awards.toString(), 'Awards', context),
-                          blockInfo(profile.friends.length.toString(),
-                              'Friends', context),
+                            profile.awards.toString(),
+                            'Awards',
+                            context,
+                            AwardListScreen(profile: profile),
+                          ),
                           blockInfo(
-                              profile.events.toString(), 'Events', context),
+                            profile.friends.length.toString(),
+                            'Friends',
+                            context,
+                            FriendListScreen(profile: profile),
+                          ),
+                          blockInfo(
+                            profile.events.toString(),
+                            'Events',
+                            context,
+                            AllEventsPage(),
+                          ),
                         ],
                       )),
+                  addToFriendButton(context),
+                  addReviewButton(
+                      context, snapshot.data.user, snapshot.data.user),
                   Container(
                       height: 60,
                       width: double.infinity,

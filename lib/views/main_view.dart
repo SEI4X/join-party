@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart' show EvaIcons;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:join_party/models/profile_model.dart';
 import 'package:join_party/models/sql/repository_service.dart';
+import 'package:join_party/models/user_model.dart';
+import 'package:join_party/views/auth_modules/login_view.dart';
+import 'package:join_party/views/chats_modules/new_chat_view.dart';
+import 'package:join_party/views/profile_modules/settings_view.dart';
 import 'profile_modules/profile_view.dart';
 import 'chats_modules/chats_list_view.dart';
 import 'map_modules/map_view.dart';
@@ -11,6 +16,9 @@ import '../models/colors.dart';
 import 'map_modules/search_view.dart';
 
 class MainPage extends StatefulWidget {
+  final User profile;
+  MainPage({this.profile});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -26,13 +34,6 @@ enum States { map, events, chats, profile }
 class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
   int menuDuration = 125;
   int currentIndex = 0;
-
-  _setLoginState() async {
-    final storage = new FlutterSecureStorage();
-    await storage.write(key: "isLogged", value: "0");
-  }
-
-  void addProfile() {}
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +96,18 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                       : bottomIcons == BottomIcons.Events
                           ? Container(width: 44)
                           : bottomIcons == BottomIcons.Chats
-                              ? SizedBox(
-                                  width: 44,
-                                  child: Icon(EvaIcons.plusCircleOutline,
-                                      color: Colors.blueGrey),
+                              ? IconButton(
+                                  iconSize: 25,
+                                  icon: Icon(EvaIcons.plusOutline),
+                                  color: Colors.blueGrey,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => NewChatScreen(),
+                                      ),
+                                    );
+                                  },
                                 )
                               : Container(width: 44),
                   Text(
@@ -164,9 +173,13 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
                                     icon: Icon(EvaIcons.moreVerticalOutline),
                                     color: Colors.blueGrey,
                                     onPressed: () {
-                                      RepositoryServiceProfile.deleteProfile();
-                                      _setLoginState();
-                                      setState(() {});
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => SettingsView(
+                                              profile: widget.profile),
+                                        ),
+                                      );
                                     },
                                   ),
                                 ),

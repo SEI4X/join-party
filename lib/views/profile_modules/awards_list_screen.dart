@@ -6,16 +6,16 @@ import 'package:join_party/models/colors.dart';
 import 'package:join_party/models/profile_model.dart';
 import '../../models/user_model.dart';
 
-class FriendListScreen extends StatefulWidget {
+class AwardListScreen extends StatefulWidget {
   final Profile profile;
 
-  FriendListScreen({this.profile});
+  AwardListScreen({this.profile});
 
   @override
-  _FreindListScreen createState() => _FreindListScreen();
+  _AwardListScreen createState() => _AwardListScreen();
 }
 
-class _FreindListScreen extends State<FriendListScreen> {
+class _AwardListScreen extends State<AwardListScreen> {
   friendBlock(User friend) {
     return Container(
         width: double.infinity,
@@ -90,42 +90,38 @@ class _FreindListScreen extends State<FriendListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myColors[profile.user.colorScheme],
-      appBar: AppBar(
-        toolbarHeight: 60,
-        backgroundColor: Colors.transparent,
-        title: Center(
-          child: Text(
-            "Friends",
-            style: TextStyle(
-              fontSize: 21.0,
-              fontWeight: FontWeight.w500,
+        backgroundColor: myColors[profile.user.colorScheme],
+        appBar: AppBar(
+          toolbarHeight: 60,
+          backgroundColor: Colors.transparent,
+          title: Center(
+            child: Text(
+              "Awards",
+              style: TextStyle(
+                fontSize: 21.0,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
+          elevation: 0.0,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(EvaIcons.searchOutline),
+              iconSize: 30.0,
+              color: Colors.white,
+              onPressed: () {},
+            ),
+          ],
         ),
-        elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(EvaIcons.searchOutline),
-            iconSize: 30.0,
-            color: Colors.white,
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 15),
-        decoration: BoxDecoration(gradient: myGradients[6]),
-        child: ClipRRect(
-          child: ListView.builder(
-            itemCount: profile.friends.length,
-            itemBuilder: (BuildContext context, int index) {
-              final User friend = profile.friends[index];
-              return friendBlock(friend);
-            },
-          ),
-        ),
-      ),
-    );
+        body: Container(
+            padding: EdgeInsets.symmetric(vertical: 15),
+            decoration: BoxDecoration(color: Colors.white),
+            child: ClipRRect(
+                child: ListView.builder(
+                    itemCount: profile.friends.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final User friend = profile.friends[index];
+                      return friendBlock(friend);
+                    }))));
   }
 }

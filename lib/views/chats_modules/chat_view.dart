@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:join_party/models/colors.dart';
 import 'package:join_party/models/sql/repository_messages.dart';
 import '../../models/message_model.dart';
-import '../../models/user_model.dart';
 import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -25,6 +24,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Stream<List<Message>> get messageListView async* {
     yield await getMessageByChatId(widget.chat.id);
+  }
+
+  @override
+  void dispose() {
+    _messageController.close();
+    super.dispose();
   }
 
   sendMessage() {

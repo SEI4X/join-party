@@ -6,16 +6,16 @@ import 'package:join_party/models/colors.dart';
 import 'package:join_party/models/profile_model.dart';
 import '../../models/user_model.dart';
 
-class FriendListScreen extends StatefulWidget {
+class NewChatScreen extends StatefulWidget {
   final Profile profile;
 
-  FriendListScreen({this.profile});
+  NewChatScreen({this.profile});
 
   @override
-  _FreindListScreen createState() => _FreindListScreen();
+  _NewChatScreen createState() => _NewChatScreen();
 }
 
-class _FreindListScreen extends State<FriendListScreen> {
+class _NewChatScreen extends State<NewChatScreen> {
   friendBlock(User friend) {
     return Container(
         width: double.infinity,

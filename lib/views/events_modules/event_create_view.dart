@@ -111,7 +111,7 @@ class _EventCreatePageState extends State<EventCreatePage> {
         description: eventDescriptionController.text,
         date: "${_date.year}-${_date.month}-${_date.day}",
         time: "${_time.hour}:${_time.minute}:00",
-        tag: "",
+        tag: "any",
         imageUrl: "-1",
         creator: _user,
         colorScheme: _user.colorScheme,
