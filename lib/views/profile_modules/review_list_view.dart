@@ -14,19 +14,19 @@ class ReviewListScreen extends StatefulWidget {
 }
 
 class _ReviewListScreen extends State<ReviewListScreen> {
-  reviewBlock(Review review, BuildContext context) {
+  Widget blockReview(Review review, BuildContext context) {
     return Container(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 15),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
-        gradient: myGradients[review.user.colorScheme],
+        color: Color(0xffffffff),
         borderRadius: BorderRadius.all(Radius.circular(20)),
         boxShadow: [
           BoxShadow(
-            color: myShadows[review.user.colorScheme],
+            color: myShadows[6],
             spreadRadius: 1,
             blurRadius: 4,
-            offset: Offset(0, 2),
+            offset: Offset(0, 3), // changes position of shadow
           ),
         ],
       ),
@@ -48,7 +48,7 @@ class _ReviewListScreen extends State<ReviewListScreen> {
                   ),
                   CircleAvatar(
                     radius: 35.0,
-                    backgroundImage: AssetImage(review.user.imageUrl),
+                    backgroundImage: NetworkImage(review.user.imageUrl),
                   )
                 ],
               ),
@@ -57,9 +57,9 @@ class _ReviewListScreen extends State<ReviewListScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    review.user.name,
+                    "${review.user.name} ${review.user.secondName}",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: myColors[review.user.colorScheme],
                       fontSize: 15.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -70,11 +70,10 @@ class _ReviewListScreen extends State<ReviewListScreen> {
                     child: Text(
                       review.text,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.grey[600],
                         fontSize: 15.0,
                         fontWeight: FontWeight.w600,
                       ),
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
@@ -85,11 +84,11 @@ class _ReviewListScreen extends State<ReviewListScreen> {
             width: 50,
             child: Text(
               review.date,
+              textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 15.0,
-                fontWeight: FontWeight.bold,
-              ),
+                  color: myColors[review.user.colorScheme],
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -100,7 +99,7 @@ class _ReviewListScreen extends State<ReviewListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: myColors[profile.user.colorScheme],
+        backgroundColor: myColors[widget.profile.user.colorScheme],
         appBar: AppBar(
           toolbarHeight: 60,
           backgroundColor: Colors.transparent,
@@ -128,10 +127,10 @@ class _ReviewListScreen extends State<ReviewListScreen> {
             decoration: BoxDecoration(color: Colors.white),
             child: ClipRRect(
                 child: ListView.builder(
-                    itemCount: profile.review.length,
+                    itemCount: widget.profile.review.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final Review review = profile.review[index];
-                      return reviewBlock(review, context);
+                      final Review review = widget.profile.review[index];
+                      return blockReview(review, context);
                     }))));
   }
 }

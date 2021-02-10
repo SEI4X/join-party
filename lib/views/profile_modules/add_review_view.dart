@@ -2,19 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 import 'package:join_party/models/colors.dart';
+import 'package:join_party/models/message_model.dart';
+import 'package:join_party/models/profile_model.dart';
+import 'package:join_party/models/sql/repository_messages.dart';
+import 'package:join_party/models/sql/repository_reviews.dart';
 import 'package:join_party/models/user_model.dart';
 import 'package:join_party/views/auth_modules/register_second_view.dart';
 
 class NewReview extends StatefulWidget {
-  final User sender;
-  final User recipient;
-  NewReview({this.sender, this.recipient});
+  final Profile profile;
+  NewReview({this.profile});
 
   @override
   _NewReviewState createState() => _NewReviewState();
 }
 
 class _NewReviewState extends State<NewReview> {
+  TextEditingController reviewTextController = TextEditingController();
+
+  sendReview() {
+    if (reviewTextController.text.isNotEmpty) {
+      ReviewsTable review = ReviewsTable(0, widget.profile.user.id,
+          currentUser.id, DateTime.now(), reviewTextController.text);
+      reviewTextController.text = "";
+      postReview(review);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +71,7 @@ class _NewReviewState extends State<NewReview> {
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).padding.top + 10),
                     child: Text(
-                      "Review for ${widget.recipient.name}",
+                      "Review for ${widget.profile.user.name}",
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -95,6 +109,7 @@ class _NewReviewState extends State<NewReview> {
                         enableSuggestions: false,
                         autocorrect: false,
                         obscureText: false,
+                        controller: reviewTextController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "Review",
@@ -104,12 +119,10 @@ class _NewReviewState extends State<NewReview> {
                   ),
                   SizedBox(height: 2),
                   InkWell(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => RegisterEndPage(),
-                      ),
-                    ),
+                    onTap: () {
+                      sendReview();
+                      Navigator.pop(context);
+                    },
                     child: Container(
                       padding: EdgeInsets.only(
                         left: 10,

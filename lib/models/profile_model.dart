@@ -1,5 +1,5 @@
+import 'package:join_party/models/events_model.dart';
 import 'package:join_party/models/user_model.dart';
-import 'package:join_party/models/message_model.dart';
 
 class Review {
   final User user;
@@ -7,6 +7,14 @@ class Review {
   final String text;
 
   Review({this.user, this.date, this.text});
+}
+
+class Award {
+  final String awardName;
+  final String about;
+  final String imageUrl;
+
+  Award({this.awardName, this.about, this.imageUrl});
 }
 
 // First review
@@ -19,25 +27,15 @@ final Review secondReview =
 
 class Profile {
   final User user;
-  final String about;
-  final int events;
-  final int awards;
+  List<Event> events = new List<Event>();
+  List<Award> awards = new List<Award>();
   List<User> friends = new List<User>();
   List<Review> review = new List<Review>();
 
-  Profile(
-      {this.user,
-      this.about,
-      this.events,
-      this.awards,
-      this.friends,
-      this.review});
+  Profile({this.user, this.events, this.awards, this.friends, this.review});
 }
 
 final Profile profile = Profile(
     user: james,
-    about: "My life, my rules.",
-    events: 16,
-    awards: 9,
     friends: [sophia, john, olivia],
     review: [firstReview, secondReview]);
