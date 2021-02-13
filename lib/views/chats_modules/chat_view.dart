@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:join_party/models/colors.dart';
 import 'package:join_party/models/sql/repository_messages.dart';
+import 'package:join_party/models/user_model.dart';
 import '../../models/message_model.dart';
 import 'package:intl/intl.dart';
 
@@ -23,6 +24,15 @@ class _ChatScreenState extends State<ChatScreen> {
   Stream get messageController => _messageController.stream;
 
   Stream<List<Message>> get messageListView async* {
+    Chat newChat;
+    if (widget.chat.id == null) {
+      postChat(new Chat(sender: widget.chat.sender, user: widget.chat.user));
+      await getChatByUsers(widget.chat.sender.id, widget.chat.user.id)
+          .then((value) {
+        newChat = value;
+      });
+      widget.chat.id = newChat.id;
+    }
     yield await getMessageByChatId(widget.chat.id);
   }
 
@@ -143,71 +153,85 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
+  Future<Chat> startChat(Chat chat) async {
+    postChat(chat);
+    Chat newChat;
+    await getChatByUsers(chat.sender.id, chat.user.id).then((value) {
+      newChat = value;
+    });
+    return (newChat);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: myColors[widget.chat.sender.colorScheme],
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Text(
-          "${widget.chat.sender.name} ${widget.chat.sender.secondName}",
-          style: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.more_horiz),
-            iconSize: 30.0,
-            color: Colors.white,
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                  child: StreamBuilder(
-                      stream: messageListView,
-                      builder: (context, snapshot) {
-                        return ListView.builder(
-                            padding: EdgeInsets.only(top: 15.0),
-                            reverse: true,
-                            itemCount: snapshot.data == null
-                                ? 0
-                                : snapshot.data.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              final Message message = snapshot
-                                  .data[snapshot.data.length - index - 1];
-                              final bool isMe =
-                                  message.senderId != widget.chat.sender.id;
-                              return _buildMessage(message, isMe);
-                            });
-                      }),
+    return FutureBuilder<Chat>(
+        future: startChat(widget.chat),
+        builder: (context, snapshot) {
+          return Scaffold(
+            backgroundColor: myColors[widget.chat.sender.colorScheme],
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              title: Text(
+                "${widget.chat.sender.name} ${widget.chat.sender.secondName}",
+                style: TextStyle(
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
+              elevation: 0.0,
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.more_horiz),
+                  iconSize: 30.0,
+                  color: Colors.white,
+                  onPressed: () {},
+                ),
+              ],
             ),
-            _buildMessageComposer(),
-          ],
-        ),
-      ),
-    );
+            body: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0),
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0),
+                        ),
+                        child: StreamBuilder(
+                            stream: messageListView,
+                            builder: (context, snapshot) {
+                              return ListView.builder(
+                                  padding: EdgeInsets.only(top: 15.0),
+                                  reverse: true,
+                                  itemCount: snapshot.data == null
+                                      ? 0
+                                      : snapshot.data.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final Message message = snapshot
+                                        .data[snapshot.data.length - index - 1];
+                                    final bool isMe = message.senderId !=
+                                        widget.chat.sender.id;
+                                    return _buildMessage(message, isMe);
+                                  });
+                            }),
+                      ),
+                    ),
+                  ),
+                  _buildMessageComposer(),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

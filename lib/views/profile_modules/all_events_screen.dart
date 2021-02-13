@@ -6,6 +6,9 @@ import '../../models/events_model.dart';
 import '../events_modules/event_view.dart';
 
 class AllEventsPage extends StatefulWidget {
+  final Profile profile;
+
+  AllEventsPage({this.profile});
   @override
   _AllEventsPageState createState() => _AllEventsPageState();
 }
@@ -16,7 +19,7 @@ class _AllEventsPageState extends State<AllEventsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("All events"),
-        backgroundColor: myColors[profile.user.colorScheme],
+        backgroundColor: myColors[widget.profile.user.colorScheme],
       ),
       body: Container(
         padding: EdgeInsets.only(bottom: 50, top: 12),

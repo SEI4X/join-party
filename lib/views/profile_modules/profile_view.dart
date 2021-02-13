@@ -1,7 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:join_party/models/events_model.dart';
+import 'package:join_party/models/message_model.dart';
 import 'package:join_party/models/profile_model.dart';
-import 'package:join_party/models/sql/repository_service.dart';
+import 'package:join_party/models/sql/repository_awards.dart';
+import 'package:join_party/models/sql/repository_reviews.dart';
+import 'package:join_party/models/sql/repository_users.dart';
+import 'package:join_party/models/sql/repository_friends.dart';
 import 'package:join_party/models/user_model.dart';
 import 'package:join_party/views/profile_modules/add_review_view.dart';
 import 'package:join_party/views/profile_modules/all_events_screen.dart';
@@ -16,17 +23,34 @@ final blocks = [
   Center(child: FriendListScreen(profile: profile)),
 ];
 
-class ProfilePage extends StatelessWidget {
-  Future<Profile> getUser() async {
-    User user;
-    await RepositoryServiceProfile.getProfile().then((value) {
-      user = value;
-    });
-    return Profile(user: user, about: user.about);
+class ProfilePage extends StatefulWidget {
+  final Profile profile;
+
+  ProfilePage({this.profile});
+
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final StreamController _profileController = StreamController();
+  Stream get profileController => _profileController.stream;
+
+  Stream<Profile> profileView(Duration refreshTime) async* {
+    while (true) {
+      await Future.delayed(refreshTime);
+      yield await getProfileForStream(currentUser.id);
+    }
   }
 
-  Widget blockInfo(
-      String topText, String bottomText, BuildContext context, Widget screen) {
+  @override
+  void dispose() {
+    _profileController.close();
+    super.dispose();
+  }
+
+  Widget blockInfo(String topText, String bottomText, BuildContext context,
+      Widget screen, Profile profile) {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -232,7 +256,7 @@ class ProfilePage extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       child: Text(
-                        profile.about,
+                        profile.user.about,
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: Colors.blueGrey[700],
@@ -293,7 +317,7 @@ class ProfilePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    review.user.name,
+                    "${review.user.name} ${review.user.secondName}",
                     style: TextStyle(
                       color: myColors[review.user.colorScheme],
                       fontSize: 15.0,
@@ -321,11 +345,11 @@ class ProfilePage extends StatelessWidget {
             width: 50,
             child: Text(
               review.date,
+              textAlign: TextAlign.center,
               style: TextStyle(
-                color: myColors[review.user.colorScheme],
-                fontSize: 15.0,
-                fontWeight: FontWeight.bold,
-              ),
+                  color: myColors[review.user.colorScheme],
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -333,16 +357,12 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget addReviewButton(BuildContext context, User sender, User recipient) {
+  Widget addReviewButton(BuildContext context, Profile profile) {
     return InkWell(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (_) => NewReview(
-                    sender: sender,
-                    recipient: recipient,
-                  )),
+          MaterialPageRoute(builder: (_) => NewReview(profile: profile)),
         );
       },
       child: Container(
@@ -411,11 +431,10 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Profile>(
-        future: getUser(),
+    return StreamBuilder<Profile>(
+        stream: profileView(Duration(seconds: 3)),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data.user.id);
             return Container(
               decoration: BoxDecoration(gradient: myGradients[6]),
               child: Column(
@@ -440,28 +459,27 @@ class ProfilePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           blockInfo(
-                            profile.awards.toString(),
-                            'Awards',
-                            context,
-                            AwardListScreen(profile: profile),
-                          ),
+                              snapshot.data.awards.length.toString(),
+                              'Awards',
+                              context,
+                              AwardListScreen(profile: snapshot.data),
+                              snapshot.data),
                           blockInfo(
-                            profile.friends.length.toString(),
-                            'Friends',
-                            context,
-                            FriendListScreen(profile: profile),
-                          ),
+                              snapshot.data.friends.length.toString(),
+                              'Friends',
+                              context,
+                              FriendListScreen(profile: snapshot.data),
+                              snapshot.data),
                           blockInfo(
-                            profile.events.toString(),
-                            'Events',
-                            context,
-                            AllEventsPage(),
-                          ),
+                              snapshot.data.events.length.toString(),
+                              'Events',
+                              context,
+                              AllEventsPage(profile: snapshot.data),
+                              snapshot.data),
                         ],
                       )),
                   addToFriendButton(context),
-                  addReviewButton(
-                      context, snapshot.data.user, snapshot.data.user),
+                  addReviewButton(context, snapshot.data),
                   Container(
                       height: 60,
                       width: double.infinity,
@@ -470,7 +488,8 @@ class ProfilePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            child: Text(review,
+                            child: Text(
+                                "Reviews (${snapshot.data.review.length.toString()})",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
@@ -481,7 +500,7 @@ class ProfilePage extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (_) =>
-                                    ReviewListScreen(profile: profile),
+                                    ReviewListScreen(profile: snapshot.data),
                               ),
                             ),
                             child: Container(
@@ -490,14 +509,19 @@ class ProfilePage extends StatelessWidget {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 17,
-                                    color: myColors[profile.user.colorScheme],
+                                    color: myColors[
+                                        snapshot.data.user.colorScheme],
                                   )),
                             ),
                           ),
                         ],
                       )),
-                  blockReview(profile.review[0], context),
-                  blockReview(profile.review[1], context)
+                  snapshot.data.review.length >= 1
+                      ? blockReview(snapshot.data.review[0], context)
+                      : Container(),
+                  snapshot.data.review.length > 1
+                      ? blockReview(snapshot.data.review[1], context)
+                      : Container(),
                 ],
               ),
             );

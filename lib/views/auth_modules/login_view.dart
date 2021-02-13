@@ -57,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
           twitterId: jsonResponse["image_url"],
           about: jsonResponse["about"]);
       currentUser.id = profile.id;
+      currentUser.colorScheme = profile.colorScheme;
       RepositoryServiceProfile.addProfile(profile);
       await _setLoginState();
       await Navigator.pushAndRemoveUntil(

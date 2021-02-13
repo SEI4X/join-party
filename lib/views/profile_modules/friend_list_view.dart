@@ -52,7 +52,7 @@ class _FreindListScreen extends State<FriendListScreen> {
                         ),
                         CircleAvatar(
                           radius: 35.0,
-                          backgroundImage: AssetImage(friend.imageUrl),
+                          backgroundImage: NetworkImage(friend.imageUrl),
                         )
                       ],
                     ),
@@ -90,7 +90,7 @@ class _FreindListScreen extends State<FriendListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myColors[profile.user.colorScheme],
+      backgroundColor: myColors[widget.profile.user.colorScheme],
       appBar: AppBar(
         toolbarHeight: 60,
         backgroundColor: Colors.transparent,
@@ -118,9 +118,9 @@ class _FreindListScreen extends State<FriendListScreen> {
         decoration: BoxDecoration(gradient: myGradients[6]),
         child: ClipRRect(
           child: ListView.builder(
-            itemCount: profile.friends.length,
+            itemCount: widget.profile.friends.length,
             itemBuilder: (BuildContext context, int index) {
-              final User friend = profile.friends[index];
+              final User friend = widget.profile.friends[index];
               return friendBlock(friend);
             },
           ),

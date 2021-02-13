@@ -1,7 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:join_party/models/events_model.dart';
+import 'package:join_party/models/sql/repository_awards.dart';
+import 'package:join_party/models/sql/repository_friends.dart';
+import 'package:join_party/models/sql/repository_reviews.dart';
 import 'package:join_party/models/user_model.dart';
+
+import '../profile_model.dart';
 
 class UsersTable {
   int id;
@@ -75,4 +81,44 @@ Future<User> getUserById(int userId) async {
       tikTokId: jsonResponse["tiktok"],
       twitterId: jsonResponse["image_url"],
       about: jsonResponse["about"]);
+}
+
+Future<void> postUserInfo(UsersTable user) async {
+  var url = 'http://joinparty.ru/users/about/' + user.id.toString();
+  await http.post(url, body: {
+    "first_name": user.name,
+    "second_name": user.secondName,
+    "country": user.country,
+    "city": user.city,
+    "about": user.about,
+  });
+}
+
+Future<Profile> getProfileForStream(int userId) async {
+  User user;
+  await getUserById(userId).then((value) {
+    user = value;
+  });
+
+  List<User> friends;
+  await getFriendsByUserId(userId).then((value) {
+    friends = value;
+  });
+
+  List<Review> reviews;
+  await getReviewsByUserId(userId).then((value) {
+    reviews = value;
+  });
+
+  List<Award> awards;
+  await getAwardsByUserId(userId).then((value) {
+    awards = value;
+  });
+
+  return Profile(
+      user: user,
+      friends: friends,
+      review: reviews,
+      awards: awards,
+      events: events);
 }

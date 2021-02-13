@@ -2,10 +2,11 @@ import 'user_model.dart';
 
 class Chat {
   int id;
+  User user;
   User sender;
   List<Message> messages = List<Message>();
 
-  Chat({this.sender, this.messages, this.id});
+  Chat({this.sender, this.messages, this.user, this.id});
 
   @override
   String toString() {

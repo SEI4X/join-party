@@ -16,7 +16,7 @@ class AwardListScreen extends StatefulWidget {
 }
 
 class _AwardListScreen extends State<AwardListScreen> {
-  friendBlock(User friend) {
+  AwardBlock(Award award) {
     return Container(
         width: double.infinity,
         margin: const EdgeInsets.fromLTRB(15, 0, 15, 15),
@@ -50,9 +50,10 @@ class _AwardListScreen extends State<AwardListScreen> {
                             color: Colors.white,
                           ),
                         ),
-                        CircleAvatar(
-                          radius: 35.0,
-                          backgroundImage: AssetImage(friend.imageUrl),
+                        Image(
+                          height: 80.0,
+                          width: 80.0,
+                          image: AssetImage(award.imageUrl),
                         )
                       ],
                     ),
@@ -62,19 +63,20 @@ class _AwardListScreen extends State<AwardListScreen> {
                           Container(
                             width: MediaQuery.of(context).size.width - 150,
                             child: Text(
-                              "${friend.name} ${friend.secondName}",
+                              award.awardName,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
-                                color: myColors[friend.colorScheme],
+                                color: Colors.black87,
                               ),
                             ),
                           ),
                           Container(
                             height: 30,
                             width: MediaQuery.of(context).size.width - 150,
+                            padding: EdgeInsets.only(top: 5),
                             child: Text(
-                              "${friend.city} ${friend.country}",
+                              award.about,
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -90,7 +92,7 @@ class _AwardListScreen extends State<AwardListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: myColors[profile.user.colorScheme],
+        backgroundColor: myColors[widget.profile.user.colorScheme],
         appBar: AppBar(
           toolbarHeight: 60,
           backgroundColor: Colors.transparent,
@@ -118,10 +120,10 @@ class _AwardListScreen extends State<AwardListScreen> {
             decoration: BoxDecoration(color: Colors.white),
             child: ClipRRect(
                 child: ListView.builder(
-                    itemCount: profile.friends.length,
+                    itemCount: widget.profile.awards.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final User friend = profile.friends[index];
-                      return friendBlock(friend);
+                      final Award award = widget.profile.awards[index];
+                      return AwardBlock(award);
                     }))));
   }
 }

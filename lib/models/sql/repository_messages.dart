@@ -74,6 +74,38 @@ Future<List<ChatsTable>> getChatsByUserId(int userId) async {
   return chats;
 }
 
+Future<ChatsTable> getChatTableByUsers(int friendId, int userId) async {
+  Map<String, String> value = {
+    "first_user": userId.toString(),
+    "second_user": friendId.toString()
+  };
+  Uri uri = Uri.parse("http://joinparty.ru/chats/find");
+  final url = uri.replace(queryParameters: value);
+  http.Response response = await http.get(url);
+  var jsonList = jsonDecode(response.body);
+  ChatsTable chat = ChatsTable.fromJson(jsonList);
+  return chat;
+}
+
+Future<Chat> getChatByUsers(int friendId, int userId) async {
+  ChatsTable chatTable;
+  await getChatTableByUsers(friendId, userId).then((value) {
+    chatTable = value;
+  });
+
+  User friend;
+  await getUserById(friendId).then((value) {
+    friend = value;
+  });
+
+  User user;
+  await getUserById(userId).then((value) {
+    user = value;
+  });
+
+  return (new Chat(id: chatTable.id, user: user, sender: friend));
+}
+
 Future<List<Message>> getMessageByChatId(int chatId) async {
   List<MessagesTable> messagesTable;
   await getMessageTableByChatId(chatId).then((value) {
@@ -157,4 +189,26 @@ Future<void> postMessage(MessagesTable message) async {
     "create_date": DateFormat('yyyy-MM-dd HH:mm:ss').format(message.createDate),
     "chat_id": message.chatId.toString(),
   });
+}
+
+Future<Chat> postChat(Chat chat) async {
+  var url = 'http://joinparty.ru/chats/new';
+
+  var response = await http.put(url, body: {
+    "first_user": chat.user.id.toString(),
+    "second_user": chat.sender.id.toString(),
+  });
+  ChatsTable newChat;
+  var jsonResponse = jsonDecode(response.body);
+  newChat = ChatsTable.fromJson(jsonResponse);
+  User sender;
+  await getUserById(newChat.secondUser).then((value) {
+    sender = value;
+  });
+
+  List<Message> messages;
+  await getMessageByChatId(newChat.id).then((value) {
+    messages = value;
+  });
+  return (Chat(id: newChat.id, sender: sender, messages: messages));
 }
